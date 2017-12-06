@@ -1,0 +1,280 @@
+/*
+** Common
+*/
+@font-face {
+    font-family: gothamCondensedLight;
+    src: url("./fonts/ufonts.com_gothamcondensed-light-opentype.otf");
+}
+
+@font-face {
+    font-family: gothamCondensedBook;
+    src: url("./fonts/ufonts.com_gothamcondensed-book-opentype.otf");
+}
+
+@font-face {
+    font-family: gothamCondensedMedium;
+    src: url("./fonts/ufonts.com_gothamcondensed-medium-opentype.otf");
+}
+
+@font-face {
+    font-family: gothamCondensedBold;
+    src: url("./fonts/ufonts.com_gothamcondensed-bold-1-opentype.otf");
+}
+
+@font-face {
+    font-family: orator;
+    src: url("./fonts/OratorStd.otf");
+}
+
+body {
+    font-family: gothamCondensedLight;
+}
+
+h4 {
+    font-family: orator;
+}
+
+label {
+    margin-bottom: 0 !important;
+}
+
+
+/* 
+** Login Page
+*/
+.loginWrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    width: 100vw;
+    height: 100vh;
+}
+
+.introArea {
+    display: grid;
+    grid-template-rows: 1fr 10fr;
+}
+
+.loginArea {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    background-color: #FECD2F;
+    align-items: center;
+}
+
+.login {
+    padding: 2em;
+}
+
+.loginLabel {
+    text-align: center;
+}
+
+.login > input {
+    border-bottom: 1px solid #333 !important;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: black !important;
+}
+
+::-moz-placeholder { /* New Mozilla */
+    color: black !important;
+}
+
+:-ms-input-placeholder { /* IE 10+ */
+    color: black !important;
+}
+
+:-moz-placeholder { /* Old Mozilla */
+    color: black !important;
+}
+
+.loginButtons{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+}
+
+.loginButton {
+    background-color: #FECD2F;
+    border-radius: 0.5em;
+    border: 0px;
+    font-family: gothamCondensedBold;
+    font-size: 1.5em;
+    padding: 0.5em;
+    -webkit-box-shadow: 3px 3px 18px 3px rgba(0,0,0,0.25);
+    -moz-box-shadow: 3px 3px 18px 3px rgba(0,0,0,0.25);
+    box-shadow: 3px 3px 18px 3px rgba(0,0,0,0.25);
+}
+
+.loginButton:focus {
+    background-color: rgb(233, 186, 43);
+}
+
+.logo {
+    display: grid;
+    align-items: center;
+}
+
+.introContent {
+    display: grid;
+    align-items: center;
+}
+
+.introLines {
+    padding: 1.5em;
+}
+
+.introLine2 {
+    font-family: gothamCondensedBold;
+    font-size: 5em;
+}
+
+.forgotPasswordLink {
+    color: black !important;
+}
+
+/* 
+** Dashboard Page
+*/
+.dashboardWrapper {
+    display: grid;
+    grid-template-areas: "topNav topNav topNav topNav"
+    "sideNavArea dashboardMainContent dashboardMainContent dashboardMainContent";
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: 100vh;
+}
+
+.topNav {
+    grid-area: topNav;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: white !important;
+    align-items: center;
+}
+
+.logoutBtn{
+    font-family: gothamCondensedBook;
+    font-size: 1.5em;
+    color: black;
+    justify-self: end;
+    margin-right: 1em;
+}
+
+.sideNavArea {
+    grid-area: sideNavArea;
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    height: calc(100vh - 60px);
+    height: -webkit-calc(100vh - 60px);
+}
+
+.sideNav {
+    border-right: 1px solid rgb(197, 197, 197);
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+}
+
+.navItem {
+    font-family: orator;
+    font-size: 1.5em;
+    color: #888 !important;
+    text-align: center;
+    width: 100%;
+}
+
+.selected {
+    color: black !important;
+    border-right: 6px solid #FECD2F;
+    font-weight: bold;
+}
+
+.createSVCBtn {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.dashboardMainContent { 
+    grid-area: dashboardMainContent;
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 23em;
+    grid-gap: 20px;
+    padding: 3%;
+}
+.dashboardMainContent > .garageCard {
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+    display: grid;
+    grid-template-rows: 2fr 3fr 1fr;
+    justify-items: center;
+}
+.dashboardMainContent > .garageCard img {
+    max-width: 100%;
+}
+.cardText {
+    margin: 0.5em;
+    width: 95%;
+}
+
+.cardText > .gridRow1 {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.regNo{
+    font-family: orator;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.cardText > .gridRow2, .gridRow3, .gridRow4, .gridRow5 {
+    display: grid;
+    grid-template-columns: 4fr 3fr 1fr;
+    align-items: center;
+    margin: 0.5em;
+}
+
+.cardText > .gridRow2, .gridRow3, .gridRow4, .gridRow5 > div {
+    font-family: gothamCondensedBook;
+}
+
+.cardText > div > label {
+    font-family: gothamCondensedLight;
+    font-size: 0.8em;
+}
+
+.cardText > div > i {
+    font-size: 12px;
+    justify-self: end;
+    cursor: pointer;
+}
+
+.zuppNowBtn {
+    width: 100%;
+    background-color: #FECD2F;
+    border: 0 !important;
+    border-radius: 0 !important;
+    font-family: gothamCondensedBold;
+    font-size: 1.2em;
+}
+
+.modal-title {
+    font-family: gothamCondensedBook;
+    font-size: 1.4em;
+}
+
+.modal-footer > button {
+    font-family: gothamCondensedBold;
+    color: black;
+}
+
+.modal-footer > .btn-primary {
+    background-color: #FECD2F;
+    border: 0 !important;
+}
