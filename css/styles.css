@@ -207,6 +207,7 @@ label {
     grid-gap: 20px;
     padding: 3%;
 }
+
 .dashboardMainContent > .garageCard {
     border: 1px solid #ccc;
     box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
@@ -277,4 +278,158 @@ label {
 .modal-footer > .btn-primary {
     background-color: #FECD2F;
     border: 0 !important;
+}
+
+.nav-link{
+    color: #999 !important;
+    font-size: 22px !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    color: black !important;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+.dateRange{
+    display: flex;
+}
+
+.fromDate, .toDate{
+    margin-right: 50px;
+}
+
+.clearRow{
+    visibility: hidden;
+}
+
+/* 
+** Report Page
+*/
+.reportWrapper{
+    display: grid;
+    grid-template-areas: "topNav topNav topNav topNav"
+    "sideNavArea reportMainContent reportMainContent reportMainContent";
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.reportMainContent{
+    grid-area: reportMainContent;
+    display: grid;
+    margin-left: 20px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px;
+    grid-template-areas:
+    "tabsDiv"
+    "tab-content"; 
+}
+
+.reportTabs{
+    padding: .5rem 4rem 0 0 !important;
+}
+
+.goButton, .goButtonReport{
+    background-color: #fff !important;
+    border-radius: 0.5em !important;
+    border: 1px solid #FECD2F !important;
+    font-family: gothamCondensedBold;
+    font-size: 14px !important;
+    padding: 0 40px !important;
+    color: black !important;
+}
+.goButtonReport{
+    padding: 5px 40px !important;
+}
+.dateRange, .regNoDiv{
+    margin: 20px 0;
+}
+
+.table td, .table th{
+    border-top: none;
+}
+.table thead th{
+    border-bottom: 1px solid #FECD2F;
+}
+/* 
+** SVC Page
+*/
+.svcWrapper{
+    display: grid;
+    grid-template-areas: "topNav topNav"
+    "sideNavArea svcMainContent";
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 1fr 4fr;
+}
+.svcMainContent{
+    grid-area: svcMainContent;
+    display: grid;
+    margin-left: 20px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px;
+    grid-template-areas:
+    "svcDiv"
+}
+.searchBar{
+    display: flex;
+    width: 40%;
+}
+/* 
+** Create SVC Page
+*/
+.createClick{
+    cursor: pointer;
+}
+.createLabel{
+    width: 40%;
+}
+.planNo{
+    display: flex;
+}
+.planText{
+    margin-top: -52px;
+    margin-left: 32px;
+    font-size: 20px;
+    font-weight: 600;
+}
+.createForm{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "personalDetails . addressDetails";
+}
+.personalDetails, .addressDetails{
+    margin: 20px 80px 20px 0;
+}
+input[type=text]:focus{
+    border-bottom: 1px solid #999 !important;
+}
+.input-field label:focus{
+    color: #999 !important;
+}
+.attachBtn{
+    float: right !important;
+    background-color: #fff !important;
+    border: 1px solid #FECD2F !important;
+    color: black !important;
+    text-transform: none !important;
+    border-radius: 8px !important;
+    height: 2rem !important;
+    line-height: 2rem !important;
+}
+.attachLabel{
+    font-size: 18px;
+}
+.saveBtn{
+    background-color: #FECD2F !important;
+    color: black !important;
+    text-transform: none !important;
+    font-weight: 600;
+    float: right;
+    border-radius: 8px !important;
+    margin-top: 12px;
+    margin-right: -5px;
+}
+.saveImg{
+    width: 26%;
+    float: right;
 }

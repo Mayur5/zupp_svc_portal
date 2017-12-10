@@ -5,7 +5,11 @@ $(".loginButton").click(function (e) {
 
 $(document).ready(function(){
     $('.datepicker').datepicker({
-        format: 'mm/dd/yyyy',
+        format: 'dd/mm/yyyy',
         startDate: '-3d'
     });
+});
+
+$('.createClick').click(function (){
+    location.href = 'createSvc.html';
 });

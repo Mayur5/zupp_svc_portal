@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Dashboard</title>
+        <title>Reports</title>
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- Import materialize.css
@@ -16,41 +16,119 @@
     </head>
 
     <body>
-        <div class="dashboardWrapper">
+        <div class="reportWrapper">
             <div class="topNav">
                 <div class="logo">
                     <img src="img/Zupp web_Logo.png" alt="ZUPP" />
                 </div>
                 <div class="logoutBtn">LOGOUT</div>
             </div>
+
             <div class="sideNavArea">
                 <div></div>
                 <div class="sideNav">
-                    <a class="navItem" href="garage.html">Garage</a>
-                    <a class="navItem selected" href="reports.html">Reports</a>
+                    <a class="navItem" href="dashboard.html">Garage</a>
+                    <a class="navItem selected" href="reports.html">Reports
+                    </a>
                     <a class="navItem" href="svc.html">SVCs</a>
                 </div>
                 <div class="createSVCBtn">
                     <img src="img/Zupp web_FAB.png" alt="Create SVC" />
                 </div>
             </div>
-            <div class="dashboardMainContent">
+
+            <div class="reportMainContent">
+                <div class="tabsDiv">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                            <li class="nav-item">
-                              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
-                            </li>
-                          </ul>
-                          <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
-                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
-                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
-                          </div>
+                        <li class="nav-item">
+                          <a class="nav-link reportTabs active" id="rentals-tab" data-toggle="pill" href="#rentals" role="tab" aria-controls="rentals" aria-selected="true">Rentals</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link reportTabs" id="svc-tab" data-toggle="pill" href="#svc" role="tab" aria-controls="svc" aria-selected="false">SVCs sold</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link reportTabs" id="status-tab" data-toggle="pill" href="#status" role="tab" aria-controls="status" aria-selected="false">Vehicle Status</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="rentals" role="tabpanel" aria-labelledby="rentals-tab">
+                        <div class="regNoDiv">
+                            <div class="regNoLabel">Registration No.</div>
+                            <div class="regNo">KA 05 HT 1544</div>
+                        </div>
+
+                        <div class="dateRange">
+                            <div class="fromDate">
+                                <div class="regNoLabel">From</div>
+                                <div class="regNo">DD MM YYYY</div>
+                            </div>
+                            <div class="toDate">
+                                <div class="regNoLabel">To</div>
+                                <div class="regNo">DD MM YYYY</div>
+                            </div>
+                            <div class="goBtn">
+                                <div class="regNoLabel clearRow">Clear</div>
+                                <button class="btn goButtonReport">Go!</button>
+                            </div>
+                        </div>
+
+                        <div class="rentalTable">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date out</th>
+                                        <th>Date in</th>
+                                        <th>Customer id</th>
+                                        <th>Total Kms</th>
+                                        <th>Fine</th>
+                                        <th>Total amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>20/12/2017</th>
+                                        <th>20/12/2017</th>
+                                        <th>1234567</th>
+                                        <th>200</th>
+                                        <th>NIL</th>
+                                        <th>1099/-</th>
+                                    </tr>
+                                    <tr>
+                                        <th>20/12/2017</th>
+                                        <th>20/12/2017</th>
+                                        <th>1234567</th>
+                                        <th>200</th>
+                                        <th>NIL</th>
+                                        <th>1099/-</th>
+                                    </tr>
+                                    <tr>
+                                        <th>20/12/2017</th>
+                                        <th>20/12/2017</th>
+                                        <th>1234567</th>
+                                        <th>200</th>
+                                        <th>NIL</th>
+                                        <th>1099/-</th>
+                                    </tr>
+                                    <tr>
+                                        <th>20/12/2017</th>
+                                        <th>20/12/2017</th>
+                                        <th>1234567</th>
+                                        <th>200</th>
+                                        <th>NIL</th>
+                                        <th>1099/-</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="svc" role="tabpanel" aria-labelledby="svc-tab">
+                        <h4>SVCs sold</h4>
+                    </div>
+                    <div class="tab-pane fade" id="status" role="tabpanel" aria-labelledby="status-tab">
+                        <h4>Vehicle Status</h4>
+                    </div>
+                </div>
             </div>
         </div>
     <!--Import jQuery before materialize.js-->
