@@ -97,14 +97,18 @@ label {
 
 .loginButton {
     background-color: #FECD2F;
-    border-radius: 0.5em;
+    border-radius: 8px;
     border: 0px;
     font-family: gothamCondensedBold;
-    font-size: 1.5em;
-    padding: 0.5em;
+    font-size: 18px;
+    padding: 5px 20px;
     -webkit-box-shadow: 3px 3px 18px 3px rgba(0,0,0,0.25);
     -moz-box-shadow: 3px 3px 18px 3px rgba(0,0,0,0.25);
     box-shadow: 3px 3px 18px 3px rgba(0,0,0,0.25);
+}
+
+.fa-3x{
+    font-size: 20px !important;
 }
 
 .loginButton:focus {
@@ -134,6 +138,14 @@ label {
     color: black !important;
 }
 
+#toast-container{
+    top: 4% !important;
+}
+
+input{
+    font-size: 18px !important;
+}
+
 /* 
 ** Dashboard Page
 */
@@ -160,6 +172,7 @@ label {
     color: black;
     justify-self: end;
     margin-right: 1em;
+    cursor: pointer;
 }
 
 .sideNavArea {
@@ -432,4 +445,31 @@ input[type=text]:focus{
 .saveImg{
     width: 26%;
     float: right;
+}
+
+.printText{
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #999;
+}
+.printValue{
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+.printLogo{
+    margin-bottom: 20px;
+}
+.printHeader{
+    margin: 20px 0;
+    text-align: center;
+}
+.printHeading{ 
+    font-weight: bold !important;
+}
+.mainDivPrint{
+    display: flex;
+}
+.personalDetailsPrint,.addressDetailsPrint{
+    width: 40%;
+    margin-left: 10%;
 }
