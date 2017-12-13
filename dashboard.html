@@ -26,43 +26,16 @@
             <div class="sideNavArea">
                 <div></div>
                 <div class="sideNav">
-                    <a class="navItem selected" href="dashboard.html">Garage</a>
-                    <a class="navItem" href="reports.html">Reports</a>
-                    <a class="navItem" href="svc.html">SVCs</a>
+                    <a class="navItem selected" id="garage" href="dashboard.html">Garage</a>
+                    <a class="navItem" id="reports" href="reports.html">Reports</a>
+                    <a class="navItem" id="svc" href="svc.html">SVCs</a>
                 </div>
                 <div class="createSVCBtn">
                     <img src="img/Zupp web_FAB.png" class="createClick" alt="Create SVC" />
                 </div>
             </div>
             <div class="dashboardMainContent">
-                <div class="garageCard">
-                    <img src="img/Zupp web_Scooter front.png" alt="Bike">
-                    <div class="cardText">
-                        <div class="gridRow1">
-                            <div class="regNo">KA 05 HT 1544</div>
-                        </div>
-                        <div class="gridRow2">
-                            <label class="cardLabel">Insurance Valid Till</label>
-                            <div class="insuranceDate">12 Dec 2017</div>
-                            <i class="material-icons insuranceDateEdit" data-toggle="modal" data-target="#insuranceDateModal">mode_edit</i>
-                        </div>
-                        <div class="gridRow3">
-                            <label class="cardLabel">PUC Valid Till</label>
-                            <div class="pucDate">12 Dec 2017</div>
-                            <i class="material-icons pucDateEdit" data-toggle="modal" data-target="#pucDateModal">mode_edit</i>
-                        </div>
-                        <div class="gridRow4">
-                            <label class="cardLabel">Last Serviced On</label>
-                            <div class="serviceDate">12 Sept 2017</div>
-                            <i class="material-icons serviceDateEdit" data-toggle="modal" data-target="#serviceDateModal">mode_edit</i>
-                        </div>
-                        <div class="gridRow5">
-                            <label class="cardLabel">Status</label>
-                            <div class="currentStatus">Available</div>
-                        </div>
-                    </div>
-                    <button class="zuppNowBtn">ZUPP Now!</button>
-                </div>
+                
             </div>
         </div>
         <div class="modal hide fade" id="insuranceDateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -138,9 +111,8 @@
                 </div>
             </div>
     <!--Import jQuery before materialize.js-->
-    <!-- <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <!-- <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script> -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>

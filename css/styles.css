@@ -151,10 +151,10 @@ input{
 */
 .dashboardWrapper {
     display: grid;
-    grid-template-areas: "topNav topNav topNav topNav"
-    "sideNavArea dashboardMainContent dashboardMainContent dashboardMainContent";
+    grid-template-areas: "topNav topNav"
+    "sideNavArea dashboardMainContent";
     grid-template-rows: 60px 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 4fr;
     height: 100vh;
 }
 
@@ -214,23 +214,24 @@ input{
 .dashboardMainContent { 
     grid-area: dashboardMainContent;
     display: grid;
-    /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 23em;
-    grid-gap: 20px;
     padding: 3%;
+    grid-gap: 20px;
+    /*grid-auto-rows: 23em;
+    ;*/
 }
 
 .dashboardMainContent > .garageCard {
     border: 1px solid #ccc;
     box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
     display: grid;
-    grid-template-rows: 2fr 3fr 1fr;
+    grid-template-rows: 2fr 2fr 50px;
     justify-items: center;
 }
-.dashboardMainContent > .garageCard img {
-    max-width: 100%;
+.garageCard img {
+    width: 100%;
 }
+
 .cardText {
     margin: 0.5em;
     width: 95%;
@@ -239,6 +240,10 @@ input{
 .cardText > .gridRow1 {
     text-align: center;
     border-bottom: 1px solid #ccc;
+}
+
+.currentStatus{
+    text-transform: capitalize;
 }
 
 .regNo{
@@ -321,10 +326,10 @@ input{
 */
 .reportWrapper{
     display: grid;
-    grid-template-areas: "topNav topNav topNav topNav"
-    "sideNavArea reportMainContent reportMainContent reportMainContent";
+    grid-template-areas: "topNav topNav"
+    "sideNavArea reportMainContent";
     grid-template-rows: 60px 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 4fr;
 }
 .reportMainContent{
     grid-area: reportMainContent;
@@ -385,6 +390,9 @@ input{
 .searchBar{
     display: flex;
     width: 40%;
+}
+.searchValue{
+    margin-right: 20px !important;
 }
 /* 
 ** Create SVC Page
