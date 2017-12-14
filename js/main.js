@@ -44,22 +44,7 @@ $(document).ready(function(){
         startDate: '-3d'
     });
 
-    function getDate(date){
-    	
-		
-		
-
-		/*var locale = "en-us";
-    	var monthLong = fullDate.toLocaleString(locale, { month: "long" });*/
-
-    	var fullDate = new Date(date), locale = "en-us", month = date.toLocaleString(locale, { month: "long" });
-
-		console.log('date', month);
-
-		var finalDate = date + '-' + month + '-' + year;
-    }
-
-
+    //format date
     function checkDate(date){
     	var objDate = new Date(date), locale = "en-us", month = objDate.toLocaleString(locale, { month: "long" });
     	
@@ -69,12 +54,11 @@ $(document).ready(function(){
 
 		var fullDate = date + ' ' + month + ' ' + year;
 		return fullDate;
-
     }
 
-    //get list of svc
     var token = localStorage.getItem('token');
     if(token !== ''){
+    	//get list of svc
     	$.ajax({
 	    	url: baseUrl + 'svc?page=1&searchString=',
 	    	type: "GET",
@@ -101,11 +85,9 @@ $(document).ready(function(){
 	        	console.log('error');
 	        }
 	    });
-    }
 
-    //get list of vehicles
-    if(token !== ''){
-    	$.ajax({
+	    //get list of vehicles
+	    $.ajax({
 	    	url: baseUrl + 'vehicles?page=1',
 	    	type: "GET",
 	        contentType: "application/json",
@@ -131,6 +113,26 @@ $(document).ready(function(){
 	        	console.log('error');
 	        }
 	    });
+
+	    //get svc report
+	    $.ajax({
+	    	url: baseUrl + 'report/svc',
+	    	type: "GET",
+	        contentType: "application/json",
+	        crossDomain: true,
+	        beforeSend: function (xhr) {
+	          xhr.setRequestHeader("Authorization", "Bearer "+ token);
+	        },
+	        success: function(result){
+	        	if(result.status == 'success'){
+	        		$('.svcSold')[0].innerHTML = result.data.totalSVCSalesCount;
+	        		$('.salesTotal')[0].innerHTML = result.data.totalSVCSales + '/-';
+	        	}
+	        },
+	        error: function (jqXHR, textStatus, errorThrown) {
+	        	console.log('error');
+	        }
+	    });
     }
 
 });
@@ -144,7 +146,6 @@ $('.logoutBtn').click(function(){
 	token = '';
 	location.href = 'index.html';
 });
-
 
 //create svc
 $('.saveBtn').click(function(e){
