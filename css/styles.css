@@ -274,7 +274,7 @@ input{
     cursor: pointer;
 }
 
-.zuppNowBtn {
+.zuppNowBtn, .buyBtn {
     width: 100%;
     background-color: #FECD2F;
     border: 0 !important;
@@ -477,7 +477,69 @@ input[type=text]:focus{
 .mainDivPrint{
     display: flex;
 }
-.personalDetailsPrint,.addressDetailsPrint{
+.personalDetailsPrint,.addressDetailsPrint, .planDetailsDiv{
     width: 40%;
     margin-left: 10%;
+}
+
+/* 
+** Select Plan Page
+*/
+.plansWrapper{
+    display: grid;
+    grid-template-areas: "topNav topNav"
+    "sideNavArea plansMainContent";
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 1fr 4fr;
+}
+.plansMainContent{
+    grid-area: plansMainContent;
+    display: grid;
+    margin-left: 20px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px;
+    grid-template-areas:
+    "plansDiv"
+}
+.plansDiv{
+    display: flex;
+}
+.planCard{
+    margin-right: 10px;
+    width: 20%;
+    height: fit-content;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+}
+.planLogo{
+    text-align: center;
+}
+.zuppLogo{
+    width: 30%;
+    margin-top: 10px;
+}
+.planCircle{
+    margin-top: -20px;
+    width: 24%;
+}
+.selectPlanText{
+    margin-left: 0 !important;
+    margin-top: -42px;
+    font-size: 18px;
+}
+.planNumberCircle{
+    text-align: center;
+}
+.planId{
+    font-weight: bold;
+    font-size: 18px;
+}
+.svcClick{
+    cursor: pointer;
+}
+.svcDetailsDiv{
+    display: -webkit-box;
+}
+.svcDetailsDiv > .personalDetailsPrint > .printText, .svcDetailsDiv > .addressDetailsPrint > .printText{
+    margin-bottom: 0;
 }

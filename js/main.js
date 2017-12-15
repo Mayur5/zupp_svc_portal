@@ -14,6 +14,7 @@ $(".loginButton").click(function (e) {
     if(email == '' || password == ''){
     	Materialize.toast('Please enter valid login credentials!', 4000);
     	$(this)[0].innerHTML = 'ZUPP!';
+    	$(this).attr('disabled', false);
     }
     else{
     	var data = {"email":email, "password":password};
@@ -58,6 +59,30 @@ $(document).ready(function(){
 
     var token = localStorage.getItem('token');
     if(token !== ''){
+
+    	//get single svc details
+	    var svcId = localStorage.getItem('svcToken');
+	    if(svcId !== ''){
+	    	$.ajax({
+		    	url: baseUrl + 'svc/'+svcId,
+		    	type: "GET",
+		        contentType: "application/json",
+		        crossDomain: true,
+		        beforeSend: function (xhr) {
+		          xhr.setRequestHeader("Authorization", "Bearer "+ token);
+		        },
+		        success: function(result){
+		        	if(result.status == 'success'){
+		        		$('.svcDetailsDiv').append('<div class="personalDetailsPrint"><div class="printText">Name</div><div id="custName" class="printValue">'+result.data.customerName+'</div><div class="printText">email</div><div id="custEmail" class="printValue">'+result.data.customerEmail+'</div><div class="printText">Mobile Number</div><div id="custNumber" class="printValue">'+result.data.customerPhoneNumber+'</div><div class="printText">License Number</div><div id="custLicenseNumber" class="printValue">'+result.data.customerLicenseNo+'</div></div><div class="addressDetailsPrint"><div class="printText">Address</div><div id="custAddress" class="printValue">'+result.data.address+'</div><div class="printText">City</div><div id="custCity" class="printValue">'+result.data.city+'</div><div class="printText">Pincode</div><div id="custPincode" class="printValue">'+result.data.pincode+'</div></div>')
+		        		$('.planDetailsDiv').append('<div class="printText">Plan Id</div><div id="custName" class="printValue">'+result.data.planId._id+'</div><div class="printText">Token</div><div id="custName" class="printValue">'+result.data.token+'</div>')
+		        	}
+		        },
+		        error: function (jqXHR, textStatus, errorThrown) {
+		        	console.log('error');
+		        }
+		    });
+	    }
+
     	//get list of svc
     	$.ajax({
 	    	url: baseUrl + 'svc?page=1&searchString=',
@@ -76,7 +101,7 @@ $(document).ready(function(){
 	        			$('.tableBody').empty();
 
 	        			$.each(result.data, function(key, val){
-	        				$('.tableBody').append('<tr><th>'+val.token+'</th><th></th><th>'+val._id+'</th><th></th><th>'+val.planId+'</th><th>'+val.planAmount+' /-</th></tr>');
+	        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th></th><th>'+val._id+'</th><th></th><th>'+val.planId+'</th><th>'+val.planAmount+' /-</th></tr>');
 	        			});
 	        		}
 	        	}
@@ -133,12 +158,43 @@ $(document).ready(function(){
 	        	console.log('error');
 	        }
 	    });
+
+	    //get plans list
+	    $.ajax({
+	    	url: baseUrl + 'plans',
+	    	type: "GET",
+	        contentType: "application/json",
+	        crossDomain: true,
+	        beforeSend: function (xhr) {
+	          xhr.setRequestHeader("Authorization", "Bearer "+ token);
+	        },
+	        success: function(result){
+	        	if(result.status == 'success'){
+	        		$.each(result.data, function(key, val){
+	        			$('.plansDiv').append('<div class="planCard"><div class="planNumberCircle"><img class="planCircle" src="img/Zupp web_Circle plans.png" /><p class="planText selectPlanText">'+(key+1)+'</p></div><div class="planLogo"><img class="zuppLogo img-responsive" src="img/Zupp web_Logo.png" alt="Bike"></div><div class="cardText"><div class="gridRow1"><label class="cardLabel">Plan ID</label><div class="insuranceDate">'+val.id+'</div></div><div class="gridRow2"><label class="cardLabel">Cost of Plan</label><div class="pucDate">'+val.cost+'</div></div><div class="gridRow3"><label class="cardLabel">No of claims</label><div class="pucDate">'+val.noOfClaims+'</div></div><div class="gridRow4"><label class="cardLabel">Validity Duration</label><div class="serviceDate">'+val.validityDuration+' days</div></div></div><button id="'+val.id+'" class="buyBtn">Buy</button></div>');
+	        		});
+	        	}
+	        },
+	        error: function (jqXHR, textStatus, errorThrown) {
+	        	console.log('error');
+	        }
+	    });
+
+	    //get planId
+	    var planId = localStorage.getItem('planId');
+	    $('.planId')[0].innerHTML = planId;
     }
 
 });
 
+//buy plan button click
+$('.plansDiv').on('click', '.buyBtn', function(){
+	localStorage.setItem('planId', $(this).attr('id'));
+	location.href = 'createSvc.html';
+});
+
 $('.createClick').click(function (){
-    location.href = 'createSvc.html';
+    location.href = 'plans.html';
 });
 
 //logout
@@ -152,6 +208,7 @@ $('.saveBtn').click(function(e){
 	e.preventDefault();
 
 	var token = localStorage.getItem('token');
+	var planId = localStorage.getItem('planId');
 
 	var customerName = $('.name').val();
 	var customerEmail = $('.email').val();
@@ -163,7 +220,6 @@ $('.saveBtn').click(function(e){
 	var address = add1 + ' ' + add2 + ' ' + add3;
 	var city = $('.city').val();
 	var pincode = $('.pincode').val();
-	var planId = '5a1931b3bc2076633c9e44a4';
 
 	var logo = '<div class="logo printLogo"><img src="img/Zupp web_Logo.png" alt="ZUPP" /></div>';
 	var header = '<div class="printHeader"><h2 class="printHeading">SVC Details</h2></div><div class="mainDivPrint">';
@@ -227,7 +283,7 @@ $('.goButton').click(function(){
         			$('.tableBody').empty();
 
         			$.each(result.data, function(key, val){
-        				$('.tableBody').append('<tr><th>'+val.token+'</th><th></th><th>'+val._id+'</th><th></th><th>'+val.planId+'</th><th>'+val.planAmount+' /-</th></tr>');
+        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th></th><th>'+val._id+'</th><th></th><th>'+val.planId+'</th><th>'+val.planAmount+' /-</th></tr>');
         			});
         		}
         	}
@@ -236,4 +292,10 @@ $('.goButton').click(function(){
         	console.log('error');
         }
     }); 
+});
+
+//get selected svc details
+$('.tableBody').on('click', '.svcClick', function(){
+	localStorage.setItem('svcToken', $(this).attr('id'));
+	location.href = 'svcDetails.html';
 });
