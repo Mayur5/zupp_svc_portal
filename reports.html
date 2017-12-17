@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
         <link type="text/css" rel="stylesheet" href="css/styles.css" />
         <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css" />
+        <link type="text/css" rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css"  media="screen,projection"/>
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -53,23 +54,25 @@
                 </div>
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="rentals" role="tabpanel" aria-labelledby="rentals-tab">
-                        <div class="regNoDiv">
+                        <!-- <div class="regNoDiv">
                             <div class="regNoLabel">Registration No.</div>
                             <div class="regNo">KA 05 HT 1544</div>
-                        </div>
+                        </div> -->
 
                         <div class="dateRange">
-                            <div class="fromDate">
-                                <div class="regNoLabel">From</div>
-                                <div class="regNo">DD MM YYYY</div>
-                            </div>
-                            <div class="toDate">
-                                <div class="regNoLabel">To</div>
-                                <div class="regNo">DD MM YYYY</div>
-                            </div>
-                            <div class="goBtn">
-                                <div class="regNoLabel clearRow">Clear</div>
-                                <button class="btn goButtonReport">Go!</button>
+                            <div class="input-group input-daterange">
+                                <div class="fromDateDiv">
+                                    <div class="regNoLabel">From</div>
+                                    <input type="text" id="fromDate" class="form-control regNo">
+                                </div>
+                                <div class="toDateDiv">
+                                    <div class="regNoLabel">To</div>
+                                    <input type="text" id="toDate" class="form-control regNo" value="">
+                                </div> 
+                                <div class="goBtn">
+                                    <div class="regNoLabel clearRow">Clear</div>
+                                    <button class="btn goButtonReport">Go!</button>
+                                </div>
                             </div>
                         </div>
 
@@ -85,39 +88,7 @@
                                         <th>Total amount</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>20/12/2017</th>
-                                        <th>20/12/2017</th>
-                                        <th>1234567</th>
-                                        <th>200</th>
-                                        <th>NIL</th>
-                                        <th>1099/-</th>
-                                    </tr>
-                                    <tr>
-                                        <th>20/12/2017</th>
-                                        <th>20/12/2017</th>
-                                        <th>1234567</th>
-                                        <th>200</th>
-                                        <th>NIL</th>
-                                        <th>1099/-</th>
-                                    </tr>
-                                    <tr>
-                                        <th>20/12/2017</th>
-                                        <th>20/12/2017</th>
-                                        <th>1234567</th>
-                                        <th>200</th>
-                                        <th>NIL</th>
-                                        <th>1099/-</th>
-                                    </tr>
-                                    <tr>
-                                        <th>20/12/2017</th>
-                                        <th>20/12/2017</th>
-                                        <th>1234567</th>
-                                        <th>200</th>
-                                        <th>NIL</th>
-                                        <th>1099/-</th>
-                                    </tr>
+                                <tbody class="bookingTable">
                                 </tbody>
                             </table>
                         </div>
@@ -134,18 +105,24 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="status" role="tabpanel" aria-labelledby="status-tab">
-                        <h4>Vehicle Status</h4>
+                        <div class="regNoDiv">
+                            <div class="regNoLabel">Registration No.</div>
+                            <select class="selectVehicle">
+                                <option disabled='true' selected>Select a vehicle</option>
+                            </select>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
         </div>
     <!--Import jQuery before materialize.js-->
-    <!-- <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     </body>
 </html>

@@ -356,7 +356,7 @@ input{
     color: black !important;
 }
 .goButtonReport{
-    padding: 5px 40px !important;
+    padding: 0 40px !important;
 }
 .dateRange, .regNoDiv{
     margin: 20px 0;
@@ -367,6 +367,34 @@ input{
 }
 .table thead th{
     border-bottom: 1px solid #FECD2F;
+}
+.dateAddon{
+    display: none;
+}
+#fromDate, #toDate{
+    border: none;
+    font-size: 24px !important;
+    font-weight: bold;
+    border-bottom: 1px solid #999 !important;
+    width: 70%;
+}
+.input-group .form-control{
+    width: 100%;
+    border: none;
+    text-align: left;
+    padding-left: 0;
+    font-size: 24px !important;
+    font-weight: bold;
+    color: #212529;
+}
+select{
+    display: block !important;
+    width: 30% !important;
+    font-size: 22px !important;
+    border-bottom: 1px solid #999 !important;
+    padding: 0 !important;
+    letter-spacing: 1.5px !important;
+    font-weight: bold !important;
 }
 /* 
 ** SVC Page

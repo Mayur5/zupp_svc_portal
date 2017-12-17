@@ -42,8 +42,28 @@ $(".loginButton").click(function (e) {
 $(document).ready(function(){
     $('.datepicker').datepicker({
         format: 'dd/mm/yyyy',
-        startDate: '-3d'
+        startDate: '-3d',
+        autoclose: true
     });
+
+    $('.input-daterange input').each(function() {
+	    $(this).datepicker({
+	    	format: 'dd/mm/yyyy',
+	    	autoclose: true
+	    });
+	});
+
+	function formatNewDate(date){
+		var currentTime = new Date(date);
+		var date = currentTime.getDate();
+		var month = currentTime.getMonth() + 1;
+		var year = currentTime.getFullYear();
+
+		var fullDate = date + '/' + month + '/' + year;
+		return fullDate;
+	}
+
+	$('#fromDate').val(formatNewDate(new Date()));
 
     //format date
     function checkDate(date){
@@ -101,7 +121,7 @@ $(document).ready(function(){
 	        			$('.tableBody').empty();
 
 	        			$.each(result.data, function(key, val){
-	        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th></th><th>'+val._id+'</th><th></th><th>'+val.planId+'</th><th>'+val.planAmount+' /-</th></tr>');
+	        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th></th><th></th><th>'+val.planId+'</th><th>'+val.planAmount+' /-</th></tr>');
 	        			});
 	        		}
 	        	}
@@ -130,6 +150,7 @@ $(document).ready(function(){
 
 	        			$.each(result.data, function(key, val){
 	        				$('.dashboardMainContent').append('<div class="garageCard"><img src='+val.image+' alt="Bike"><div class="cardText"><div class="gridRow1"><div class="regNo">'+val.registrationNumber+'</div></div><div class="gridRow2"><label class="cardLabel">Insurance Valid Till</label><div class="insuranceDate">'+checkDate(val.insuranceExpiry)+'</div><i class="material-icons insuranceDateEdit" data-toggle="modal" data-target="#insuranceDateModal">mode_edit</i></div><div class="gridRow3"><label class="cardLabel">PUC Valid Till</label><div class="pucDate">'+checkDate(val.emissionExpiry)+'</div><i class="material-icons pucDateEdit" data-toggle="modal" data-target="#pucDateModal">mode_edit</i></div><div class="gridRow4"><label class="cardLabel">Last Serviced On</label><div class="serviceDate">'+checkDate(val.lastServiceDate)+'</div><i class="material-icons serviceDateEdit" data-toggle="modal" data-target="#serviceDateModal">mode_edit</i></div><div class="gridRow5"><label class="cardLabel">Status</label><div class="currentStatus">'+val.status+'</div></div></div><button class="zuppNowBtn">ZUPP Now!</button></div>');
+	        				$('.selectVehicle').append('<option value="'+val.id+'">'+val.registrationNumber+'</option>');
 	        			});
 	        		}
 	        	}
@@ -185,6 +206,34 @@ $(document).ready(function(){
 	    $('.planId')[0].innerHTML = planId;
     }
 
+});
+
+//on vehicle select
+$('.selectVehicle').on('change', function(){
+	var token = localStorage.getItem('token');
+    var selectedVehicle = $(this).val();
+
+    //get vehilce status
+    $.ajax({
+    	url: baseUrl + 'vehicle/s/'+selectedVehicle,
+    	type: "GET",
+        contentType: "application/json",
+        crossDomain: true,
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", "Bearer "+ token);
+        },
+        success: function(result){
+        	if(result.status == 'success'){
+        		Materialize.toast('No records found!', 4000);
+        		/*$.each(result.data, function(key, val){
+        			$('.plansDiv').append('<div class="planCard"><div class="planNumberCircle"><img class="planCircle" src="img/Zupp web_Circle plans.png" /><p class="planText selectPlanText">'+(key+1)+'</p></div><div class="planLogo"><img class="zuppLogo img-responsive" src="img/Zupp web_Logo.png" alt="Bike"></div><div class="cardText"><div class="gridRow1"><label class="cardLabel">Plan ID</label><div class="insuranceDate">'+val.id+'</div></div><div class="gridRow2"><label class="cardLabel">Cost of Plan</label><div class="pucDate">'+val.cost+'</div></div><div class="gridRow3"><label class="cardLabel">No of claims</label><div class="pucDate">'+val.noOfClaims+'</div></div><div class="gridRow4"><label class="cardLabel">Validity Duration</label><div class="serviceDate">'+val.validityDuration+' days</div></div></div><button id="'+val.id+'" class="buyBtn">Buy</button></div>');
+        		});*/
+        	}
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        	console.log('error');
+        }
+    });
 });
 
 //buy plan button click
@@ -298,4 +347,49 @@ $('.goButton').click(function(){
 $('.tableBody').on('click', '.svcClick', function(){
 	localStorage.setItem('svcToken', $(this).attr('id'));
 	location.href = 'svcDetails.html';
+});
+
+function formatDate(date){
+	var initial = date.split(/\//);
+	var newDate = ( [ initial[1], initial[0], initial[2] ].join('/'));
+
+	var formatDate = new Date(newDate);
+	return formatDate;
+}
+
+//get report on date select
+$('.goButtonReport').click(function(){
+	var token = localStorage.getItem('token');
+
+	var fromDate = formatDate($('#fromDate').val());
+	var toDate = formatDate($('#toDate').val());
+
+	$.ajax({
+    	url: baseUrl + 'booking?page=1&start='+fromDate+'&end='+toDate,
+    	type: "GET",
+        contentType: "application/json",
+        crossDomain: true,
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", "Bearer "+ token);
+        },
+        success: function(result){
+        	if(result.status == 'success'){
+        		if(result.data.length == 0){
+        			$('.bookingTable').empty();
+        			Materialize.toast('No matching results found!', 4000);
+        		}
+        		else{
+        			$('.bookingTable').empty();
+
+        			$.each(result.data, function(key, val){
+        				$('.tableBody').append('<tr><th></th><th></th><th></th><th></th><th></th><th></th></tr>');
+        			});
+        		}
+        	}
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        	console.log('error');
+        }
+    });
+
 });
