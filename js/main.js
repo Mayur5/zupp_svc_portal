@@ -1,5 +1,7 @@
 var baseUrl = 'http://ec2-18-221-181-136.us-east-2.compute.amazonaws.com:3000/api/';
 var token = '';
+var code = '';
+var user = '';
 
 //login
 $(".loginButton").click(function (e) { 
@@ -29,29 +31,54 @@ $(".loginButton").click(function (e) {
 	        	if(result.status == 'success'){
 	        		token = result.data;
 	        		localStorage.setItem('token', token);
-	        		window.location.href = './dashboard.html';
+	        		window.location.href = './dashboard';
 	        	}
 	        },
 	        error: function (jqXHR, textStatus, errorThrown) {
-	        	console.log('error');
+	        	if(jqXHR.status == 500){
+	        		Materialize.toast('Please enter valid credentials to login!', 4000);
+	        		$(this)[0].innerHTML = 'ZUPP!';
+    				$(this).attr('disabled', false);
+	        	}
 	        }
 	    });  
     } 
 });
 
-$(document).ready(function(){
-    $('.datepicker').datepicker({
-        format: 'dd/mm/yyyy',
-        startDate: '-3d',
-        autoclose: true
-    });
+//get params from url
+function getParameterByName(name) {
+    var url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
 
-    $('.input-daterange input').each(function() {
-	    $(this).datepicker({
-	    	format: 'dd/mm/yyyy',
-	    	autoclose: true
+$(document).ready(function(){
+	code = getParameterByName('c');
+	user = getParameterByName('u');
+
+	//set datepicker
+	if($('.datepicker').length !== 0){
+		$('.datepicker').datepicker({
+	        format: 'dd/mm/yyyy',
+	        startDate: '-3d',
+	        autoclose: true
 	    });
-	});
+	}
+
+    //set datepicker range
+    if($('.input-daterange input').length !== 0){
+	    $('.input-daterange input').each(function() {
+		    $(this).datepicker({
+		    	format: 'dd/mm/yyyy',
+		    	autoclose: true
+		    });
+		});
+	}
+
 
 	function formatNewDate(date){
 		var currentTime = new Date(date);
@@ -239,11 +266,11 @@ $('.selectVehicle').on('change', function(){
 //buy plan button click
 $('.plansDiv').on('click', '.buyBtn', function(){
 	localStorage.setItem('planId', $(this).attr('id'));
-	location.href = 'createSvc.html';
+	location.href = 'createSvc';
 });
 
 $('.createClick').click(function (){
-    location.href = 'plans.html';
+    location.href = 'plans';
 });
 
 //logout
@@ -300,7 +327,7 @@ $('.saveBtn').click(function(e){
 				window.print();
 
 			    document.body.innerHTML = originalContents;
-			    location.href = 'svc.html';
+			    location.href = 'svc';
         	}
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -346,7 +373,11 @@ $('.goButton').click(function(){
 //get selected svc details
 $('.tableBody').on('click', '.svcClick', function(){
 	localStorage.setItem('svcToken', $(this).attr('id'));
-	location.href = 'svcDetails.html';
+	window.open('svcDetails');
+});
+
+$('.logo').click(function(){
+	location.href = 'dashboard';
 });
 
 function formatDate(date){
@@ -391,5 +422,76 @@ $('.goButtonReport').click(function(){
         	console.log('error');
         }
     });
+});
 
+//forgot password
+$('.sendLinkBtn').click(function(){
+	var email = $('#fpEmail').val();
+	if(email == ''){
+		Materialize.toast('Please enter an email id!', 4000);
+	}
+	else{
+		var data = {email: email};
+
+		$.ajax({
+	    	url: baseUrl + 'forgotPassword',
+	    	type: "POST",
+	        contentType: "application/json",
+	        crossDomain: true,
+	        data: JSON.stringify(data),
+	        success: function(result){
+	        	if(result.status == 'success'){
+	        		Materialize.toast('An email with a link to reset password has been sent to this email id.', 4000);
+					$('.closeModalBtn').click();
+	        	}
+	        },
+	        error: function (jqXHR, textStatus, errorThrown) {
+	        	console.log('error', jqXHR.responseJSON);
+	        	if(jqXHR.responseJSON.status == "error" && jqXHR.responseJSON.message == 'User not found!'){
+	        		Materialize.toast('Email does not match our records!<br/>Please enter your registered email id!', 4000);
+	        	}
+	        	else if(jqXHR.responseJSON.status == "error" && jqXHR.responseJSON.code == "EMESSAGE"){
+	        		Materialize.toast('This email address is not verified!', 4000);
+	        	}
+	        }
+	    });
+	}
+});
+
+//reset password
+$('.resetPasswordButton').click(function(){
+	var newPassword = $('.newPassword').val();
+	var repeatNewPassword = $('.repeatNewPassword').val();
+
+	if(newPassword !== repeatNewPassword){
+		Materialize.toast('Passwords do not match!', 4000);
+	}
+	else{
+		var data = {email: user, code: code, password: newPassword};
+
+		$.ajax({
+	    	url: baseUrl + 'resetPassword',
+	    	type: "POST",
+	        contentType: "application/json",
+	        crossDomain: true,
+	        data: JSON.stringify(data),
+	        success: function(result){
+	        	if(result.status == 'success'){
+	        		Materialize.toast('Your password is successfully reset!<br/>Please wait. Redirecting to login page', 4000);
+	        		setTimeout(function(){
+	        			location.href = 'index.html';
+	        		}, 3000);
+	        	}
+	        },
+	        error: function (jqXHR, textStatus, errorThrown) {
+	        	console.log('error', jqXHR.responseJSON);
+	        	/*if(jqXHR.responseJSON.status == "error" && jqXHR.responseJSON.message == 'User not found!'){
+	        		Materialize.toast('Email does not match our records!<br/>Please enter your registered email id!', 4000);
+	        	}
+	        	else if(jqXHR.responseJSON.status == "error" && jqXHR.responseJSON.code == "EMESSAGE"){
+	        		Materialize.toast('This email address is not verified!', 4000);
+	        	}*/
+	        }
+	    });
+	}
 });

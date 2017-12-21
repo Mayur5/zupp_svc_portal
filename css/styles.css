@@ -95,13 +95,13 @@ label {
     align-items: center;
 }
 
-.loginButton {
+.loginButton, .resetPasswordButton {
     background-color: #FECD2F;
     border-radius: 8px;
     border: 0px;
     font-family: gothamCondensedBold;
     font-size: 18px;
-    padding: 5px 20px;
+    padding: 10px 20px;
     -webkit-box-shadow: 3px 3px 18px 3px rgba(0,0,0,0.25);
     -moz-box-shadow: 3px 3px 18px 3px rgba(0,0,0,0.25);
     box-shadow: 3px 3px 18px 3px rgba(0,0,0,0.25);
@@ -111,13 +111,14 @@ label {
     font-size: 20px !important;
 }
 
-.loginButton:focus {
+.loginButton:focus, .resetPasswordButton:focus {
     background-color: rgb(233, 186, 43);
 }
 
 .logo {
     display: grid;
     align-items: center;
+    cursor: pointer;
 }
 
 .introContent {
@@ -136,6 +137,7 @@ label {
 
 .forgotPasswordLink {
     color: black !important;
+    font-size: 18px;
 }
 
 #toast-container{
@@ -144,6 +146,20 @@ label {
 
 input{
     font-size: 18px !important;
+}
+.fpModalHeader{
+    display: block !important;
+}
+#forgotPasswordModal{
+    max-height: 41% !important;
+}
+.fpModalFooter{
+    display: block !important;
+    background-color: #fff !important;
+    border-top: none !important;
+}
+.fpModalContent{
+    padding: 0 !important;
 }
 
 /* 
@@ -564,6 +580,7 @@ input[type=text]:focus{
 }
 .svcClick{
     cursor: pointer;
+    text-decoration: underline !important;
 }
 .svcDetailsDiv{
     display: -webkit-box;
