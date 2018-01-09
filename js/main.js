@@ -148,7 +148,7 @@ $(document).ready(function(){
 	        			$('.tableBody').empty();
 
 	        			$.each(result.data, function(key, val){
-	        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th></th><th></th><th>'+val.planId+'</th><th>'+val.planAmount+' /-</th></tr>');
+	        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th></th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th>View Details</th></tr>');
 	        			});
 	        		}
 	        	}
@@ -359,7 +359,7 @@ $('.goButton').click(function(){
         			$('.tableBody').empty();
 
         			$.each(result.data, function(key, val){
-        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th></th><th>'+val._id+'</th><th></th><th>'+val.planId+'</th><th>'+val.planAmount+' /-</th></tr>');
+        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th></th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th>View Details</th></tr>');
         			});
         		}
         	}
