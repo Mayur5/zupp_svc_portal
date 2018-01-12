@@ -148,7 +148,7 @@ $(document).ready(function(){
 	        			$('.tableBody').empty();
 
 	        			$.each(result.data, function(key, val){
-	        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th></th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th>View Details</th></tr>');
+	        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th></th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a id='+val._id+' class="btn viewDetailsBtn">View Details</a></th></tr>');
 	        			});
 	        		}
 	        	}
@@ -200,6 +200,7 @@ $(document).ready(function(){
 	        	if(result.status == 'success'){
 	        		$('.svcSold')[0].innerHTML = result.data.totalSVCSalesCount;
 	        		$('.salesTotal')[0].innerHTML = result.data.totalSVCSales + '/-';
+	        		$('.vehicleStatusDiv').append('<div class="regNoDiv"><div class="regNoLabel">Total Active SVC</div><div class="regNo svcSold">'+result.data.totalActiveSVC+'</div></div><div class="regNoDiv"><div class="regNoLabel">Total Claimed SVC</div><div class="regNo svcSold">'+result.data.totalClaimedSVC+'</div></div><div class="regNoDiv"><div class="regNoLabel">Total Expired SVC</div><div class="regNo svcSold">'+result.data.totalExpiredSVC+'</div></div>');
 	        	}
 	        },
 	        error: function (jqXHR, textStatus, errorThrown) {
@@ -219,7 +220,7 @@ $(document).ready(function(){
 	        success: function(result){
 	        	if(result.status == 'success'){
 	        		$.each(result.data, function(key, val){
-	        			$('.plansDiv').append('<div class="planCard"><div class="planNumberCircle"><img class="planCircle" src="img/Zupp web_Circle plans.png" /><p class="planText selectPlanText">'+(key+1)+'</p></div><div class="planLogo"><img class="zuppLogo img-responsive" src="img/Zupp web_Logo.png" alt="Bike"></div><div class="cardText"><div class="gridRow1"><label class="cardLabel">Plan ID</label><div class="insuranceDate">'+val.id+'</div></div><div class="gridRow2"><label class="cardLabel">Cost of Plan</label><div class="pucDate">'+val.cost+'</div></div><div class="gridRow3"><label class="cardLabel">No of claims</label><div class="pucDate">'+val.noOfClaims+'</div></div><div class="gridRow4"><label class="cardLabel">Validity Duration</label><div class="serviceDate">'+val.validityDuration+' days</div></div></div><button id="'+val.id+'" class="buyBtn">Buy</button></div>');
+	        			$('.plansDiv').append('<div class="planCard"><div class="planNumberCircle"><img class="planCircle" src="img/Zupp web_Circle plans.png" /><p class="planText selectPlanText">'+(key+1)+'</p></div><div class="planLogo"><img class="zuppLogo img-responsive" src="img/Zupp web_Logo.png" alt="Bike"></div><div class="cardText"><div class="gridRow1"><label class="cardLabel">Plan ID</label><div class="insuranceDate">'+val.name+'</div></div><div class="gridRow2"><label class="cardLabel">Cost of Plan</label><div class="pucDate">'+val.cost+'</div></div><div class="gridRow4"><label class="cardLabel">Validity Duration</label><div class="serviceDate">'+val.validityDuration+' days</div></div><div class="gridRow5"><label class="cardLabel">Coverage</label><div class="serviceDate">'+val.coverage+' days</div></div></div><button name='+val.name+' id="'+val.id+'" class="buyBtn">Buy</button></div>');
 	        		});
 	        	}
 	        },
@@ -230,7 +231,8 @@ $(document).ready(function(){
 
 	    //get planId
 	    var planId = localStorage.getItem('planId');
-	    $('.planId')[0].innerHTML = planId;
+	    var planName = localStorage.getItem('planName');
+	    $('.planId')[0].innerHTML = planName;
     }
 
 });
@@ -240,7 +242,7 @@ $('.selectVehicle').on('change', function(){
 	var token = localStorage.getItem('token');
     var selectedVehicle = $(this).val();
 
-    //get vehilce status
+    //get vehicle status
     $.ajax({
     	url: baseUrl + 'vehicle/s/'+selectedVehicle,
     	type: "GET",
@@ -266,6 +268,7 @@ $('.selectVehicle').on('change', function(){
 //buy plan button click
 $('.plansDiv').on('click', '.buyBtn', function(){
 	localStorage.setItem('planId', $(this).attr('id'));
+	localStorage.setItem('planName', $(this).attr('name'));
 	location.href = 'createSvc';
 });
 
@@ -336,6 +339,12 @@ $('.saveBtn').click(function(e){
     }); 
 });
 
+//view customer details
+$('.tableBody').on('click', '.viewDetailsBtn', function(){
+	localStorage.setItem('svcToken', $(this).attr('id'));
+	location.href = 'svcDetails.html';
+});
+
 //get svc list with search
 $('.goButton').click(function(){
 	var token = localStorage.getItem('token');
@@ -359,7 +368,7 @@ $('.goButton').click(function(){
         			$('.tableBody').empty();
 
         			$.each(result.data, function(key, val){
-        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th></th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th>View Details</th></tr>');
+        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th></th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a class="btn btn-flat">View Details</a></th></tr>');
         			});
         		}
         	}
@@ -373,7 +382,7 @@ $('.goButton').click(function(){
 //get selected svc details
 $('.tableBody').on('click', '.svcClick', function(){
 	localStorage.setItem('svcToken', $(this).attr('id'));
-	window.open('svcDetails');
+	location.href = 'svcDetails.html';
 });
 
 $('.logo').click(function(){
