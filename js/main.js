@@ -31,7 +31,7 @@ $(".loginButton").click(function (e) {
 	        	if(result.status == 'success'){
 	        		token = result.data;
 	        		localStorage.setItem('token', token);
-	        		window.location.href = './dashboard';
+	        		window.location.href = './dashboard.html';
 	        	}
 	        },
 	        error: function (jqXHR, textStatus, errorThrown) {
@@ -269,11 +269,11 @@ $('.selectVehicle').on('change', function(){
 $('.plansDiv').on('click', '.buyBtn', function(){
 	localStorage.setItem('planId', $(this).attr('id'));
 	localStorage.setItem('planName', $(this).attr('name'));
-	location.href = 'createSvc';
+	location.href = 'createSvc.html';
 });
 
 $('.createClick').click(function (){
-    location.href = 'plans';
+    location.href = 'plans.html';
 });
 
 //logout
@@ -330,7 +330,7 @@ $('.saveBtn').click(function(e){
 				window.print();
 
 			    document.body.innerHTML = originalContents;
-			    location.href = 'svc';
+			    location.href = 'svc.html';
         	}
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -386,7 +386,7 @@ $('.tableBody').on('click', '.svcClick', function(){
 });
 
 $('.logo').click(function(){
-	location.href = 'dashboard';
+	location.href = 'dashboard.html';
 });
 
 function formatDate(date){
