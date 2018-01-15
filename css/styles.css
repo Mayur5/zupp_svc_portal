@@ -262,10 +262,15 @@ input{
     text-transform: capitalize;
 }
 
-.regNo{
+.regNo, .reportLabel{
     font-family: orator;
     font-size: 1.5em;
     font-weight: bold;
+}
+
+.reportLabel{
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
 .cardText > .gridRow2, .gridRow3, .gridRow4, .gridRow5 {
@@ -411,6 +416,16 @@ select{
     padding: 0 !important;
     letter-spacing: 1.5px !important;
     font-weight: bold !important;
+}
+.card-panel{
+    width: 20%;
+    text-align: center;
+    background-color: #fff !important;
+    border: 1px solid teal !important;
+    margin-right: 10px !important;
+}
+.reportsDiv{
+    display: flex !important;
 }
 /* 
 ** SVC Page

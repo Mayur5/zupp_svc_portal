@@ -31,7 +31,7 @@ $(".loginButton").click(function (e) {
 	        	if(result.status == 'success'){
 	        		token = result.data;
 	        		localStorage.setItem('token', token);
-	        		window.location.href = './dashboard.html';
+	        		window.location.href = './svc.html';
 	        	}
 	        },
 	        error: function (jqXHR, textStatus, errorThrown) {
@@ -148,7 +148,7 @@ $(document).ready(function(){
 	        			$('.tableBody').empty();
 
 	        			$.each(result.data, function(key, val){
-	        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th></th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a id='+val._id+' class="btn viewDetailsBtn">View Details</a></th></tr>');
+	        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th>'+val.customerPhoneNumber+'</th><th></th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a id='+val._id+' class="btn viewDetailsBtn">View Details</a></th></tr>');
 	        			});
 	        		}
 	        	}
@@ -200,6 +200,9 @@ $(document).ready(function(){
 	        	if(result.status == 'success'){
 	        		$('.svcSold')[0].innerHTML = result.data.totalSVCSalesCount;
 	        		$('.salesTotal')[0].innerHTML = result.data.totalSVCSales + '/-';
+					$('.activeTotal')[0].innerHTML = result.data.totalActiveSVC;        		
+					$('.claimedTotal')[0].innerHTML = result.data.totalClaimedSVC;
+					$('.expiredTotal')[0].innerHTML = result.data.totalExpiredSVC;
 	        		$('.vehicleStatusDiv').append('<div class="regNoDiv"><div class="regNoLabel">Total Active SVC</div><div class="regNo svcSold">'+result.data.totalActiveSVC+'</div></div><div class="regNoDiv"><div class="regNoLabel">Total Claimed SVC</div><div class="regNo svcSold">'+result.data.totalClaimedSVC+'</div></div><div class="regNoDiv"><div class="regNoLabel">Total Expired SVC</div><div class="regNo svcSold">'+result.data.totalExpiredSVC+'</div></div>');
 	        	}
 	        },
@@ -220,7 +223,7 @@ $(document).ready(function(){
 	        success: function(result){
 	        	if(result.status == 'success'){
 	        		$.each(result.data, function(key, val){
-	        			$('.plansDiv').append('<div class="planCard"><div class="planNumberCircle"><img class="planCircle" src="img/Zupp web_Circle plans.png" /><p class="planText selectPlanText">'+(key+1)+'</p></div><div class="planLogo"><img class="zuppLogo img-responsive" src="img/Zupp web_Logo.png" alt="Bike"></div><div class="cardText"><div class="gridRow1"><label class="cardLabel">Plan ID</label><div class="insuranceDate">'+val.name+'</div></div><div class="gridRow2"><label class="cardLabel">Cost of Plan</label><div class="pucDate">'+val.cost+'</div></div><div class="gridRow4"><label class="cardLabel">Validity Duration</label><div class="serviceDate">'+val.validityDuration+' days</div></div><div class="gridRow5"><label class="cardLabel">Coverage</label><div class="serviceDate">'+val.coverage+' days</div></div></div><button name='+val.name+' id="'+val.id+'" class="buyBtn">Buy</button></div>');
+	        			$('.plansDiv').append('<div class="planCard"><div class="planNumberCircle"><img class="planCircle" src="img/Zupp web_Circle plans.png" /><p class="planText selectPlanText">'+(key+1)+'</p></div><div class="planLogo"><img class="zuppLogo img-responsive" src="img/Zupp web_Logo.png" alt="Bike"></div><div class="cardText"><div class="gridRow1"><label class="cardLabel">Plan ID</label><div class="insuranceDate">'+val.name+'</div></div><div class="gridRow2"><label class="cardLabel">Cost of Plan</label><div class="pucDate">'+val.cost+'</div></div><div class="gridRow4"><label class="cardLabel">Validity Duration</label><div class="serviceDate">'+val.validityDuration+' days</div></div><div class="gridRow5"><label class="cardLabel">Coverage</label><div class="serviceDate">'+val.coverage+' days</div></div><div class="gridRow5"><label class="cardLabel">No. of Claims</label><div class="serviceDate">'+val.noOfClaims+'</div></div></div><button name='+val.name+' id="'+val.id+'" class="buyBtn">Buy</button></div>');
 	        		});
 	        	}
 	        },
@@ -368,7 +371,7 @@ $('.goButton').click(function(){
         			$('.tableBody').empty();
 
         			$.each(result.data, function(key, val){
-        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th></th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a class="btn btn-flat">View Details</a></th></tr>');
+        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th>'+val.customerPhoneNumber+'</th><th></th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a class="btn btn-flat">View Details</a></th></tr>');
         			});
         		}
         	}
