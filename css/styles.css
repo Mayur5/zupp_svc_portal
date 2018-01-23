@@ -367,7 +367,7 @@ input{
     padding: .5rem 4rem 0 0 !important;
 }
 
-.goButton, .goButtonReport, .viewDetailsBtn{
+.goButton, .goButtonReport, .viewDetailsBtn, .dateFilterBtn{
     background-color: #fff !important;
     border-radius: 0.5em !important;
     border: 1px solid #FECD2F !important;
@@ -378,6 +378,9 @@ input{
 }
 .goButtonReport{
     padding: 0 40px !important;
+}
+.dateFilterBtn{
+    margin-left: 20px;
 }
 .dateRange, .regNoDiv{
     margin: 20px 0;
@@ -399,14 +402,18 @@ input{
     border-bottom: 1px solid #999 !important;
     width: 70%;
 }
+.input-daterange{
+    width: 45% !important;
+}
 .input-group .form-control{
-    width: 100%;
     border: none;
     text-align: left;
     padding-left: 0;
-    font-size: 24px !important;
-    font-weight: bold;
+    font-size: 20px !important;
     color: #212529;
+}
+.toDiv{
+    margin: 20px;
 }
 select{
     display: block !important;
@@ -453,6 +460,16 @@ select{
 .searchValue{
     margin-right: 20px !important;
 }
+.dateRange{
+    display: flex;
+}
+.startDateDiv, .endDateDiv{
+    width: 20%;
+    margin-right: 20px;
+}
+.endDateDiv{
+    margin-left: 20px;
+}
 /* 
 ** Create SVC Page
 */
@@ -486,6 +503,11 @@ input[type=text]:focus{
 .input-field label:focus{
     color: #999 !important;
 }
+
+input[type=text]:not(.browser-default):disabled{
+    color: black !important;
+}
+
 .attachBtn{
     float: right !important;
     background-color: #fff !important;
@@ -499,7 +521,7 @@ input[type=text]:focus{
 .attachLabel{
     font-size: 18px;
 }
-.saveBtn{
+.saveBtn, .closeSvcDetailsModal, .generateBtn{
     background-color: #FECD2F !important;
     color: black !important;
     text-transform: none !important;
@@ -508,9 +530,13 @@ input[type=text]:focus{
     border-radius: 8px !important;
     margin-top: 12px;
     margin-right: -5px;
+    margin-bottom: 20px;
+}
+.closeSvcDetailsModal{
+    margin-right: 20px;
 }
 .saveImg{
-    width: 26%;
+    width: 24%;
     float: right;
 }
 
@@ -539,6 +565,13 @@ input[type=text]:focus{
 .personalDetailsPrint,.addressDetailsPrint, .planDetailsDiv{
     width: 40%;
     margin-left: 10%;
+}
+
+.checkDetailsDiv{
+    display: -webkit-box;
+}
+.checkDetailsDiv .personalDetails, .checkDetailsDiv .addressDetails{
+    width: 40%;
 }
 
 /* 

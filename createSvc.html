@@ -67,8 +67,16 @@
                                     <label for="mobileNumber">Mobile Number *</label>
                                 </div>
                                 <div class="input-field">
-                                    <input placeholder="License no." id="licenseNumber" type="text" class="licenseNumber">
-                                    <label for="licenseNumber">License no.</label>
+                                    <input placeholder="Vehicle Registration Number" id="regNumber" type="text" class="regNumber">
+                                    <label for="regNumber">Vehicle Registration Number</label>
+                                </div>
+                                <div class="input-field">
+                                    <input placeholder="Vehicle Model" id="model" type="text" class="model">
+                                    <label for="model">Vehicle Model</label>
+                                </div>
+                                <div class="input-field">
+                                    <input placeholder="Insurance Policy Number" id="policyNumber" type="text" class="policyNumber">
+                                    <label for="policyNumber">Insurance Policy Number *</label>
                                 </div>
                             </div>
 
@@ -95,11 +103,77 @@
                                 </div> 
                                 <div>
                                     <img class="saveImg" src="img/Zupp web_Save and print.png"/>
-                                    <button class="btn saveBtn">Generate</button>
+                                    <a class="btn generateBtn">Generate</a>
                                 </span>
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <!--Modal to view SVC details before confirmation-->
+            <div id="svcDetailsModal" class="modal">
+                <div class="modal-content">
+                  <h5>Please verify the data entered</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="checkDetailsDiv">
+                        <div class="personalDetails">
+                            <div class="input-field">
+                                <input disabled placeholder="Name" id="custName" type="text">
+                                <label for="custName">Name</label>
+                            </div>
+                            <div class="input-field">
+                                <input disabled placeholder="email" id="custEmail" type="text">
+                                <label for="custEmail">email</label>
+                            </div>
+                            <div class="input-field">
+                                <input disabled placeholder="Mobile Number" id="custNumber" type="text">
+                                <label for="custNumber">Mobile Number</label>
+                            </div>
+                            <div class="input-field">
+                                <input disabled placeholder="Plan Selected" id="plan" type="text">
+                                <label for="plan">Plan Selected</label>
+                            </div>
+                            <div class="input-field">
+                                <input disabled placeholder="Vehicle Registration Number" id="custRegNumber" type="text">
+                                <label for="custRegNumber">Vehicle Registration Number</label>
+                            </div>
+                            <div class="input-field">
+                                <input disabled placeholder="Vehicle Model" id="custModel" type="text">
+                                <label for="custModel">Vehicle Model</label>
+                            </div>
+                            <div class="input-field">
+                                <input disabled placeholder="Insurance Policy Number" id="custPolicyNumber" type="text">
+                                <label for="custPolicyNumber">Insurance Policy Number</label>
+                            </div>
+                        </div>
+
+                        <div class="addressDetails">
+                            <div class="input-field">
+                                <input disabled placeholder="Address Line 1" id="custAdd1" type="text">
+                                <label for="custAdd1">Address Line 1</label>
+                            </div>
+                            <div class="input-field">
+                                <input disabled placeholder="Address Line 2" id="custAdd2" type="text">
+                                <label for="custAdd2">Address Line 2</label>
+                            </div>
+                            <div class="input-field">
+                                <input disabled placeholder="Address Line 3" id="custAdd3" type="text">
+                                <label for="custAdd3">Address Line 3</label>
+                            </div>
+                            <div class="input-field">
+                                <input disabled placeholder="City" id="custCity" type="text">
+                                <label for="custCity">City</label>
+                            </div> 
+                            <div class="input-field">
+                                <input disabled placeholder="Pin code" id="custPincode" type="text">
+                                <label for="custPincode">Pin code</label>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="btn waves-light waves-effect saveBtn">Save and Send</a>
+                    <a class="btn waves-light waves-effect modal-action modal-close closeSvcDetailsModal">Cancel</a>
                 </div>
             </div>
         </div>
@@ -110,6 +184,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript">
+        $('#svcDetailsModal').modal();
+    </script>
     </body>
 </html>

@@ -3,6 +3,8 @@ var token = '';
 var code = '';
 var user = '';
 
+var doc = new jsPDF();
+
 //login
 $(".loginButton").click(function (e) { 
     e.preventDefault();
@@ -37,8 +39,8 @@ $(".loginButton").click(function (e) {
 	        error: function (jqXHR, textStatus, errorThrown) {
 	        	if(jqXHR.status == 500){
 	        		Materialize.toast('Please enter valid credentials to login!', 4000);
-	        		$(this)[0].innerHTML = 'ZUPP!';
-    				$(this).attr('disabled', false);
+	        		$('.loginButton')[0].innerHTML = 'ZUPP!';
+    				$('.loginButton').attr('disabled', false);
 	        	}
 	        }
 	    });  
@@ -54,6 +56,24 @@ function getParameterByName(name) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function formatDate(date){
+	var initial = date.split(/\//);
+	var newDate = ( [ initial[1], initial[0], initial[2] ].join('/'));
+
+	var formatDate = new Date(newDate);
+	return formatDate;
+}
+
+function formatNewDate(date){
+	var currentTime = new Date(date);
+	var date = currentTime.getDate();
+	var month = currentTime.getMonth() + 1;
+	var year = currentTime.getFullYear();
+
+	var fullDate = date + '/' + month + '/' + year;
+	return fullDate;
 }
 
 $(document).ready(function(){
@@ -78,19 +98,6 @@ $(document).ready(function(){
 		    });
 		});
 	}
-
-
-	function formatNewDate(date){
-		var currentTime = new Date(date);
-		var date = currentTime.getDate();
-		var month = currentTime.getMonth() + 1;
-		var year = currentTime.getFullYear();
-
-		var fullDate = date + '/' + month + '/' + year;
-		return fullDate;
-	}
-
-	$('#fromDate').val(formatNewDate(new Date()));
 
     //format date
     function checkDate(date){
@@ -148,7 +155,7 @@ $(document).ready(function(){
 	        			$('.tableBody').empty();
 
 	        			$.each(result.data, function(key, val){
-	        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th>'+val.customerPhoneNumber+'</th><th></th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a id='+val._id+' class="btn viewDetailsBtn">View Details</a></th></tr>');
+	        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th>'+val.customerPhoneNumber+'</th><th>'+formatNewDate(val.createdOn)+'</th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a id='+val._id+' class="btn viewDetailsBtn">View Details</a></th></tr>');
 	        			});
 	        		}
 	        	}
@@ -285,6 +292,28 @@ $('.logoutBtn').click(function(){
 	location.href = 'index.html';
 });
 
+//data validation of svc to be created
+$('.generateBtn').click(function(e){
+	e.preventDefault();
+
+	var planName = localStorage.getItem('planName');
+
+	$('#custName').val($('.name').val());
+	$('#custEmail').val($('.email').val());
+	$('#custNumber').val($('.mobileNumber').val());
+	$('#custRegNumber').val($('.regNumber').val());
+	$('#custModel').val($('.model').val());
+	$('#custPolicyNumber').val($('.policyNumber').val());
+	$('#custAdd1').val($('.add1').val());
+	$('#custAdd2').val($('.add2').val());
+	$('#custAdd3').val($('.add3').val());
+	$('#custCity').val($('.city').val());
+	$('#custPincode').val($('.pincode').val());
+	$('#plan').val(planName);
+
+	$('#svcDetailsModal').modal('open');
+});
+
 //create svc
 $('.saveBtn').click(function(e){
 	e.preventDefault();
@@ -295,7 +324,7 @@ $('.saveBtn').click(function(e){
 	var customerName = $('.name').val();
 	var customerEmail = $('.email').val();
 	var customerPhoneNumber = $('.mobileNumber').val();
-	var customerLicenseNo = $('.licenseNumber').val();
+
 	var add1 = $('.add1').val();
 	var add2 = $('.add2').val();
 	var add3 = $('.add3').val();
@@ -303,16 +332,21 @@ $('.saveBtn').click(function(e){
 	var city = $('.city').val();
 	var pincode = $('.pincode').val();
 
+	var regNumber = $('.regNumber').val();
+	var model = $('.model').val();
+	var policyNumber = $('.policyNumber').val();	
+
 	var logo = '<div class="logo printLogo"><img src="img/Zupp web_Logo.png" alt="ZUPP" /></div>';
 	var header = '<div class="printHeader"><h2 class="printHeading">SVC Details</h2></div><div class="mainDivPrint">';
 	var nameDiv = '<div class="personalDetailsPrint"><div id="custName" class="printText">Name<br/><div class="printValue">'+customerName+'</div></div>';
 	var emailDiv = '<div id="custEmail" class="printText">email<br/><div class="printValue">'+customerEmail+'</div></div>';
 	var phoneDiv = '<div id="custNumber" class="printText">Mobile Number<br/><div class="printValue">'+customerPhoneNumber+'</div></div>';
-	var licenseNumberDiv = '<div id="custLicenseNumber" class="printText">License Number<br/><div class="printValue">'+customerLicenseNo+'</div></div></div>';
 	var addressDiv = '<div class="addressDetailsPrint"><div class="printText">Address<br/><div class="printValue">'+add1+'<br/>'+add2+'<br/>'+add3+'<br/>'+city+' - '+pincode+'</div></div></div></div>'
-	var formDetails = logo + header + nameDiv + emailDiv + phoneDiv + licenseNumberDiv + addressDiv;
+	var formDetails = logo + header + nameDiv + emailDiv + phoneDiv + addressDiv;
 	
-	var data = {"planId":planId, "customerName": customerName, "customerEmail":customerEmail, "customerPhoneNumber":customerPhoneNumber, "customerLicenseNo":customerLicenseNo, "address":address, "city":city, "pincode":pincode}
+	var data = {"planId":planId, "customerName": customerName, "customerEmail":customerEmail, "customerPhoneNumber":customerPhoneNumber, "address":address, "city":city, "pincode":pincode, "vehicleRegistrationNumber":regNumber, "vehicleInsurancePolicyNumber":policyNumber, "vehicleModel":model};
+
+	console.log('data', data);
 
 	$.ajax({
     	url: baseUrl + 'SVC',
@@ -371,7 +405,7 @@ $('.goButton').click(function(){
         			$('.tableBody').empty();
 
         			$.each(result.data, function(key, val){
-        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th>'+val.customerPhoneNumber+'</th><th></th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a class="btn btn-flat">View Details</a></th></tr>');
+        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th>'+val.customerPhoneNumber+'</th><th>'+formatNewDate(val.createdOn)+'</th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a id='+val._id+' class="btn viewDetailsBtn">View Details</a></th></tr>');
         			});
         		}
         	}
@@ -380,6 +414,42 @@ $('.goButton').click(function(){
         	console.log('error');
         }
     }); 
+});
+
+//svc list with date filters
+$('.dateFilterBtn').click(function(){
+	var token = localStorage.getItem('token');
+	var searchText = $('.searchValue').val();
+	var startDate = formatDate($('#startDate').val());
+	var endDate = formatDate($('#endDate').val());
+
+	$.ajax({
+    	url: baseUrl + 'svc?page=1&searchString='+searchText+'&start='+startDate+'&end='+endDate,
+    	type: "GET",
+        contentType: "application/json",
+        crossDomain: true,
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", "Bearer "+ token);
+        },
+        success: function(result){
+        	if(result.status == 'success'){
+        		if(result.data.length == 0){
+        			$('.tableBody').empty();
+        			Materialize.toast('No matching results found!', 4000);
+        		}
+        		else{
+        			$('.tableBody').empty();
+
+        			$.each(result.data, function(key, val){
+        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th>'+val.customerPhoneNumber+'</th><th>'+formatNewDate(val.createdOn)+'</th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a id='+val._id+' class="btn viewDetailsBtn">View Details</a></th></tr>');
+        			});
+        		}
+        	}
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        	console.log('error');
+        }
+    });
 });
 
 //get selected svc details
@@ -391,14 +461,6 @@ $('.tableBody').on('click', '.svcClick', function(){
 $('.logo').click(function(){
 	location.href = 'dashboard.html';
 });
-
-function formatDate(date){
-	var initial = date.split(/\//);
-	var newDate = ( [ initial[1], initial[0], initial[2] ].join('/'));
-
-	var formatDate = new Date(newDate);
-	return formatDate;
-}
 
 //get report on date select
 $('.goButtonReport').click(function(){
