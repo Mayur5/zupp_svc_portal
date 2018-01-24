@@ -3,7 +3,7 @@ var token = '';
 var code = '';
 var user = '';
 
-var doc = new jsPDF();
+/*var doc = new jsPDF();*/
 
 //login
 $(".loginButton").click(function (e) { 
