@@ -338,7 +338,12 @@ $('.saveBtn').click(function(e){
 
 	var regNumber = $('.regNumber').val();
 	var model = $('.model').val();
-	var policyNumber = $('.policyNumber').val();	
+	var policyNumber = $('.policyNumber').val();
+
+	if(customerEmail == '' || customerPhoneNumber == ''){
+		Materialize.toast('Please enter all compulsary information marked with a *!', 4000);
+		return false;
+	}	
 
 	var logo = '<div class="logo printLogo"><img src="img/Zupp web_Logo.png" alt="ZUPP" /></div>';
 	var header = '<div class="printHeader"><h2 class="printHeading">SVC Details</h2></div><div class="mainDivPrint">';

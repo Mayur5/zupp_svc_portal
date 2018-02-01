@@ -221,6 +221,10 @@ input{
     font-weight: bold;
 }
 
+.createText{
+    margin-top: -50px;
+}
+
 .createSVCBtn {
     display: grid;
     align-items: center;
@@ -342,6 +346,11 @@ input{
     visibility: hidden;
 }
 
+.searchDiv, .filterDiv{
+    width: 35%;
+    margin-right: 10%;
+}
+
 /* 
 ** Report Page
 */
@@ -403,7 +412,7 @@ input{
     width: 70%;
 }
 .input-daterange{
-    width: 45% !important;
+    /*width: 45% !important;*/
 }
 .input-group .form-control{
     border: none;
@@ -455,7 +464,7 @@ select{
 }
 .searchBar{
     display: flex;
-    width: 40%;
+    /*width: 40%;*/
 }
 .searchValue{
     margin-right: 20px !important;
@@ -469,6 +478,9 @@ select{
 }
 .endDateDiv{
     margin-left: 20px;
+}
+.searchFilterDiv{
+    display: flex;
 }
 /* 
 ** Create SVC Page
@@ -534,6 +546,21 @@ input[type=text]:not(.browser-default):disabled{
 }
 .closeSvcDetailsModal{
     margin-right: 20px;
+}
+#svcDetailsModal{
+    max-height: 93% !important;
+    top: 3% !important;
+}
+.modalBtns{
+    display: flex;
+}
+.modalBtns .btn{
+    margin-right: 10px;
+}
+.confirmText{
+    margin: 0 0 10px 0 !important;
+    font-size: 20px;
+    font-weight: bold;
 }
 .saveImg{
     width: 24%;

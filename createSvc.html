@@ -34,6 +34,7 @@
                 </div>
                 <div class="createSVCBtn">
                     <img src="img/Zupp web_FAB.png" class="createClick" alt="Create SVC" />
+                    <p class="createText">Create SVC</p>
                 </div>
             </div>
 
@@ -75,8 +76,8 @@
                                     <label for="model">Vehicle Model</label>
                                 </div>
                                 <div class="input-field">
-                                    <input placeholder="Insurance Policy Number" id="policyNumber" type="text" class="policyNumber">
-                                    <label for="policyNumber">Insurance Policy Number *</label>
+                                    <input placeholder="Chassis No. / Engine No" id="engineNo" type="text" class="engineNo">
+                                    <label for="policyNumber">Chassis No. / Engine No *</label>
                                 </div>
                                 <div class="input-field">
                                     <input placeholder="Executive Name" id="executiveName" type="text" class="executiveName">
@@ -117,12 +118,13 @@
 
             <!--Modal to view SVC details before confirmation-->
             <div id="svcDetailsModal" class="modal">
-                <div class="modal-content">
+                <!-- <div class="modal-content">
                   <h5>Please verify the data entered</h5>
-                </div>
+                </div> -->
                 <div class="modal-body">
                     <div class="checkDetailsDiv">
                         <div class="personalDetails">
+                            <p class="confirmText">Please confirm the data you entered</p>
                             <div class="input-field">
                                 <input disabled placeholder="Name" id="custName" type="text">
                                 <label for="custName">Name</label>
@@ -174,10 +176,13 @@
                                 <input disabled placeholder="Pin code" id="custPincode" type="text">
                                 <label for="custPincode">Pin code</label>
                             </div>
+
+                            <div class="modalBtns"><a class="btn waves-light waves-effect modal-action modal-close closeSvcDetailsModal">Cancel</a>
+                                <a class="btn waves-light waves-effect saveBtn">Save and Send</a>
+                            </div>
                         </div>
                     </div>
-                    <a class="btn waves-light waves-effect saveBtn">Save and Send</a>
-                    <a class="btn waves-light waves-effect modal-action modal-close closeSvcDetailsModal">Cancel</a>
+                    
                 </div>
             </div>
         </div>
