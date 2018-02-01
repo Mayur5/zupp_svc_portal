@@ -5,6 +5,8 @@ var user = '';
 
 /*var doc = new jsPDF();*/
 
+var currentPath = window.location.pathname.split('/')[1];
+
 //login
 $(".loginButton").click(function (e) { 
     e.preventDefault();
@@ -33,7 +35,7 @@ $(".loginButton").click(function (e) {
 	        	if(result.status == 'success'){
 	        		token = result.data;
 	        		localStorage.setItem('token', token);
-	        		window.location.href = './svc.html';
+	        		window.location.href = './svc';
 	        	}
 	        },
 	        error: function (jqXHR, textStatus, errorThrown) {
@@ -149,7 +151,8 @@ $(document).ready(function(){
 	        success: function(result){
 	        	if(result.status == 'success'){
 	        		if(result.data.length == 0){
-	        			Materialize.toast('No SVCs found!', 4000);
+	        			if(currentPath == 'svc')
+	        				Materialize.toast('No SVCs found!', 4000);
 	        		}
 	        		else{
 	        			$('.tableBody').empty();
@@ -166,7 +169,7 @@ $(document).ready(function(){
 	    });
 
 	    //get list of vehicles
-	    $.ajax({
+	    /*$.ajax({
 	    	url: baseUrl + 'vehicles?page=1',
 	    	type: "GET",
 	        contentType: "application/json",
@@ -177,6 +180,7 @@ $(document).ready(function(){
 	        success: function(result){
 	        	if(result.status == 'success'){
 	        		if(result.data.length == 0){
+	        			if(currentPath == '')
 	        			Materialize.toast('No vehicles found!', 4000);
 	        		}
 	        		else{
@@ -192,7 +196,7 @@ $(document).ready(function(){
 	        error: function (jqXHR, textStatus, errorThrown) {
 	        	console.log('error');
 	        }
-	    });
+	    });*/
 
 	    //get svc report
 	    $.ajax({
@@ -248,7 +252,7 @@ $(document).ready(function(){
 });
 
 //on vehicle select
-$('.selectVehicle').on('change', function(){
+/*$('.selectVehicle').on('change', function(){
 	var token = localStorage.getItem('token');
     var selectedVehicle = $(this).val();
 
@@ -264,32 +268,32 @@ $('.selectVehicle').on('change', function(){
         success: function(result){
         	if(result.status == 'success'){
         		Materialize.toast('No records found!', 4000);
-        		/*$.each(result.data, function(key, val){
+        		$.each(result.data, function(key, val){
         			$('.plansDiv').append('<div class="planCard"><div class="planNumberCircle"><img class="planCircle" src="img/Zupp web_Circle plans.png" /><p class="planText selectPlanText">'+(key+1)+'</p></div><div class="planLogo"><img class="zuppLogo img-responsive" src="img/Zupp web_Logo.png" alt="Bike"></div><div class="cardText"><div class="gridRow1"><label class="cardLabel">Plan ID</label><div class="insuranceDate">'+val.id+'</div></div><div class="gridRow2"><label class="cardLabel">Cost of Plan</label><div class="pucDate">'+val.cost+'</div></div><div class="gridRow3"><label class="cardLabel">No of claims</label><div class="pucDate">'+val.noOfClaims+'</div></div><div class="gridRow4"><label class="cardLabel">Validity Duration</label><div class="serviceDate">'+val.validityDuration+' days</div></div></div><button id="'+val.id+'" class="buyBtn">Buy</button></div>');
-        		});*/
+        		});
         	}
         },
         error: function (jqXHR, textStatus, errorThrown) {
         	console.log('error');
         }
     });
-});
+});*/
 
 //buy plan button click
 $('.plansDiv').on('click', '.buyBtn', function(){
 	localStorage.setItem('planId', $(this).attr('id'));
 	localStorage.setItem('planName', $(this).attr('name'));
-	location.href = 'createSvc.html';
+	location.href = 'createSvc';
 });
 
 $('.createClick').click(function (){
-    location.href = 'plans.html';
+    location.href = 'plans';
 });
 
 //logout
 $('.logoutBtn').click(function(){
 	token = '';
-	location.href = 'index.html';
+	location.href = 'index';
 });
 
 //data validation of svc to be created
@@ -367,7 +371,7 @@ $('.saveBtn').click(function(e){
 				window.print();
 
 			    document.body.innerHTML = originalContents;
-			    location.href = 'svc.html';
+			    location.href = 'svc';
         	}
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -379,7 +383,7 @@ $('.saveBtn').click(function(e){
 //view customer details
 $('.tableBody').on('click', '.viewDetailsBtn', function(){
 	localStorage.setItem('svcToken', $(this).attr('id'));
-	location.href = 'svcDetails.html';
+	location.href = 'svcDetails';
 });
 
 //get svc list with search
@@ -455,11 +459,11 @@ $('.dateFilterBtn').click(function(){
 //get selected svc details
 $('.tableBody').on('click', '.svcClick', function(){
 	localStorage.setItem('svcToken', $(this).attr('id'));
-	location.href = 'svcDetails.html';
+	location.href = 'svcDetails';
 });
 
 $('.logo').click(function(){
-	location.href = 'dashboard.html';
+	location.href = 'svc';
 });
 
 //get report on date select
@@ -553,7 +557,7 @@ $('.resetPasswordButton').click(function(){
 	        	if(result.status == 'success'){
 	        		Materialize.toast('Your password is successfully reset!<br/>Please wait. Redirecting to login page', 4000);
 	        		setTimeout(function(){
-	        			location.href = 'index.html';
+	        			location.href = 'index';
 	        		}, 3000);
 	        	}
 	        },
