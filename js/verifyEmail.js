@@ -24,7 +24,7 @@ $('.savePassword').click(function(){
 		var data = {"code": code, "email":email, "password":password};
 
 		$.ajax({
-			url: baseUrl + 'user/v',
+			url: 'http://api.zuppbikes.com:3000/api/user/v',
 			type: "POST",
 		    contentType: "application/json",
 		    crossDomain: true,
