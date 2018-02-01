@@ -1,4 +1,4 @@
-var baseUrl = 'http://ec2-18-221-181-136.us-east-2.compute.amazonaws.com:3000/api/';
+var baseUrl = 'http://api.zuppbikes.com:3000/api/';
 var token = '';
 var code = '';
 var user = '';
@@ -155,7 +155,7 @@ $(document).ready(function(){
 	        			$('.tableBody').empty();
 
 	        			$.each(result.data, function(key, val){
-	        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th>'+val.customerPhoneNumber+'</th><th>'+formatNewDate(val.createdOn)+'</th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a id='+val._id+' class="btn viewDetailsBtn">View Details</a></th></tr>');
+	        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th>'+val.customerPhoneNumber+'</th><th>'+formatNewDate(val.createdOn)+'</th><th>'+formatNewDate(val.expiryDate)+'</th><th>'+val.status+'</th><th><a id='+val._id+' class="btn viewDetailsBtn">View Details</a></th></tr>');
 	        			});
 	        		}
 	        	}
@@ -405,7 +405,7 @@ $('.goButton').click(function(){
         			$('.tableBody').empty();
 
         			$.each(result.data, function(key, val){
-        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th>'+val.customerPhoneNumber+'</th><th>'+formatNewDate(val.createdOn)+'</th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a id='+val._id+' class="btn viewDetailsBtn">View Details</a></th></tr>');
+        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th>'+val.customerPhoneNumber+'</th><th>'+formatNewDate(val.createdOn)+'</th><th>'+formatNewDate(val.expiryDate)+'</th><th>'+val.status+'</th><th><a id='+val._id+' class="btn viewDetailsBtn">View Details</a></th></tr>');
         			});
         		}
         	}
@@ -441,7 +441,7 @@ $('.dateFilterBtn').click(function(){
         			$('.tableBody').empty();
 
         			$.each(result.data, function(key, val){
-        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th>'+val.customerPhoneNumber+'</th><th>'+formatNewDate(val.createdOn)+'</th><th>'+formatNewDate(val.expiryDate)+'</th><th></th><th><a id='+val._id+' class="btn viewDetailsBtn">View Details</a></th></tr>');
+        				$('.tableBody').append('<tr><th><a id="'+val._id+'" class="svcClick">'+val.token+'</a></th><th>'+val.customerName+'</th><th>'+val.customerPhoneNumber+'</th><th>'+formatNewDate(val.createdOn)+'</th><th>'+formatNewDate(val.expiryDate)+'</th><th>'+val.status+'</th><th><a id='+val._id+' class="btn viewDetailsBtn">View Details</a></th></tr>');
         			});
         		}
         	}
