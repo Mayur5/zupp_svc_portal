@@ -302,12 +302,17 @@ $('.generateBtn').click(function(e){
 
 	var planName = localStorage.getItem('planName');
 
+	if($('.email').val() == '' || $('.mobileNumber').val() == ''){
+		Materialize.toast('Please enter all compulsary information marked with a *!', 4000);
+		return false;
+	}
+
 	$('#custName').val($('.name').val());
 	$('#custEmail').val($('.email').val());
 	$('#custNumber').val($('.mobileNumber').val());
 	$('#custRegNumber').val($('.regNumber').val());
 	$('#custModel').val($('.model').val());
-	$('#custPolicyNumber').val($('.policyNumber').val());
+	$('#custPolicyNumber').val($('.engineNo').val());
 	$('#custAdd1').val($('.add1').val());
 	$('#custAdd2').val($('.add2').val());
 	$('#custAdd3').val($('.add3').val());
@@ -338,7 +343,7 @@ $('.saveBtn').click(function(e){
 
 	var regNumber = $('.regNumber').val();
 	var model = $('.model').val();
-	var policyNumber = $('.policyNumber').val();
+	var policyNumber = $('.engineNo').val();
 
 	if(customerEmail == '' || customerPhoneNumber == ''){
 		Materialize.toast('Please enter all compulsary information marked with a *!', 4000);
