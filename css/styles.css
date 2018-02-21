@@ -663,3 +663,7 @@ input[type=text]:not(.browser-default):disabled{
 .svcDetailsDiv > .personalDetailsPrint > .printText, .svcDetailsDiv > .addressDetailsPrint > .printText{
     margin-bottom: 0;
 }
+
+#svc{
+    display: none;
+}

@@ -3,7 +3,7 @@ var token = '';
 var code = '';
 var user = '';
 
-/*var doc = new jsPDF();*/
+var doc = new jsPDF();
 
 var currentPath = window.location.pathname.split('/')[1];
 
@@ -129,7 +129,8 @@ $(document).ready(function(){
 		        },
 		        success: function(result){
 		        	if(result.status == 'success'){
-		        		$('.svcDetailsDiv').append('<div class="personalDetailsPrint"><div class="printText">Name</div><div id="custName" class="printValue">'+result.data.customerName+'</div><div class="printText">email</div><div id="custEmail" class="printValue">'+result.data.customerEmail+'</div><div class="printText">Mobile Number</div><div id="custNumber" class="printValue">'+result.data.customerPhoneNumber+'</div><div class="printText">License Number</div><div id="custLicenseNumber" class="printValue">'+result.data.customerLicenseNo+'</div></div><div class="addressDetailsPrint"><div class="printText">Address</div><div id="custAddress" class="printValue">'+result.data.address+'</div><div class="printText">City</div><div id="custCity" class="printValue">'+result.data.city+'</div><div class="printText">Pincode</div><div id="custPincode" class="printValue">'+result.data.pincode+'</div></div>')
+		        		$('.svcDetailsDiv').append('<div class="personalDetailsPrint"><div class="printText">Name</div><div id="custName" class="printValue">'+result.data.customerName+'</div><div class="printText">email</div><div id="custEmail" class="printValue">'+result.data.customerEmail+'</div><div class="printText">Mobile Number</div><div id="custNumber" class="printValue">'+result.data.customerPhoneNumber+'</div><div class="printText">License Number</div><div id="custLicenseNumber" class="printValue">'+result.data.customerLicenseNo+'</div></div><div class="addressDetailsPrint"><div class="printText">Address</div><div id="custAddress" class="printValue">'+result.data.address+'</div><div class="printText">City</div><div id="custCity" class="printValue">'+result.data.city+'</div><div class="printText">Pincode</div><div id="custPincode" class="printValue">'+result.data.pincode+'</div></div>');
+
 		        		$('.planDetailsDiv').append('<div class="printText">Plan Id</div><div id="custName" class="printValue">'+result.data.planId._id+'</div><div class="printText">Token</div><div id="custName" class="printValue">'+result.data.token+'</div>')
 		        	}
 		        },
@@ -321,6 +322,7 @@ $('.generateBtn').click(function(e){
 	$('#plan').val(planName);
 
 	$('#svcDetailsModal').modal('open');
+
 });
 
 //create svc
@@ -329,6 +331,11 @@ $('.saveBtn').click(function(e){
 
 	var token = localStorage.getItem('token');
 	var planId = localStorage.getItem('planId');
+
+	/*doc.fromHTML($('#svc').get(0), 15, 15, {
+	'width': 170,
+	});
+	doc.save('sample-content.pdf');*/
 
 	var customerName = $('.name').val();
 	var customerEmail = $('.email').val();
@@ -343,14 +350,15 @@ $('.saveBtn').click(function(e){
 
 	var regNumber = $('.regNumber').val();
 	var model = $('.model').val();
-	var policyNumber = $('.engineNo').val();
+	var vehicleEngineNumber = $('.engineNo').val();
+	var executiveName = $('.executiveName').val();
 
 	if(customerEmail == '' || customerPhoneNumber == ''){
 		Materialize.toast('Please enter all compulsary information marked with a *!', 4000);
 		return false;
 	}	
 
-	var logo = '<div class="logo printLogo"><img src="img/Zupp web_Logo.png" alt="ZUPP" /></div>';
+	var logo = '<html><body><div class="logo printLogo"><img src="img/Zupp web_Logo.png" alt="ZUPP" /></div></body></html>';
 	var header = '<div class="printHeader"><h2 class="printHeading">SVC Details</h2></div><div class="mainDivPrint">';
 	var nameDiv = '<div class="personalDetailsPrint"><div id="custName" class="printText">Name<br/><div class="printValue">'+customerName+'</div></div>';
 	var emailDiv = '<div id="custEmail" class="printText">email<br/><div class="printValue">'+customerEmail+'</div></div>';
@@ -358,7 +366,7 @@ $('.saveBtn').click(function(e){
 	var addressDiv = '<div class="addressDetailsPrint"><div class="printText">Address<br/><div class="printValue">'+add1+'<br/>'+add2+'<br/>'+add3+'<br/>'+city+' - '+pincode+'</div></div></div></div>'
 	var formDetails = logo + header + nameDiv + emailDiv + phoneDiv + addressDiv;
 	
-	var data = {"planId":planId, "customerName": customerName, "customerEmail":customerEmail, "customerPhoneNumber":customerPhoneNumber, "address":address, "city":city, "pincode":pincode, "vehicleRegistrationNumber":regNumber, "vehicleInsurancePolicyNumber":policyNumber, "vehicleModel":model};
+	var data = {"planId":planId, "vehicleEngineNumber":vehicleEngineNumber, "customerName": customerName, "customerEmail":customerEmail, "customerPhoneNumber":customerPhoneNumber, "address":address, "city":city, "pincode":pincode, "vehicleRegistrationNumber":regNumber, "vehicleModel":model, "executiveName":executiveName};
 
 	console.log('data', data);
 
