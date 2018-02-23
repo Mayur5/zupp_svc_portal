@@ -3,7 +3,7 @@ var token = '';
 var code = '';
 var user = '';
 
-var currentPath = window.location.pathname.split('/')[2];
+var currentPath = window.location.pathname.split('/')[1];
 
 //login
 $(".loginButton").click(function (e) { 
@@ -368,8 +368,10 @@ $('.saveBtn').click(function(e){
         	if(result.status == 'success'){
         		var svcId = result.data._id;
         		localStorage.setItem('svcToken',svcId);
-        		//window.open('pdfDownload');
-        		location.href = 'pdfDownload';
+        		$('#svcDetailsModal').modal('close');
+        		$("input[type=text], textarea").val("");
+				$('#svcDetailsModal').modal('close');
+        		window.open('pdfDownload', '_blank');
         	}
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -417,10 +419,10 @@ if(currentPath == 'pdfDownload'){
 				$('.createdDate')[0].innerHTML = formatNewDate(result.data.createdOn);
 				$('.price')[0].innerHTML = result.data.planAmount + ' INR';
 
-				$('.dealer')[0].innerHTML = '';
-				$('.dealerCode')[0].innerHTML = '';
+				$('.dealer')[0].innerHTML = result.data.vendorId.name;
+				$('.dealerCode')[0].innerHTML = result.data.vendorId.token;
 				$('.executiveName')[0].innerHTML = result.data.executiveName;
-				$('.contactNumber')[0].innerHTML = '';
+				$('.contactNumber')[0].innerHTML = result.data.vendorId.phoneNumber;
 
 				window.print();
         		
