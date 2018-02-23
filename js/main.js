@@ -1,11 +1,9 @@
-var baseUrl = 'http://api.zuppbikes.com:3000/api/';
+var baseUrl = 'http://api.zuppbikes.com/api/';
 var token = '';
 var code = '';
 var user = '';
 
-var doc = new jsPDF();
-
-var currentPath = window.location.pathname.split('/')[1];
+var currentPath = window.location.pathname.split('/')[2];
 
 //login
 $(".loginButton").click(function (e) { 
@@ -332,11 +330,6 @@ $('.saveBtn').click(function(e){
 	var token = localStorage.getItem('token');
 	var planId = localStorage.getItem('planId');
 
-	/*doc.fromHTML($('#svc').get(0), 15, 15, {
-	'width': 170,
-	});
-	doc.save('sample-content.pdf');*/
-
 	var customerName = $('.name').val();
 	var customerEmail = $('.email').val();
 	var customerPhoneNumber = $('.mobileNumber').val();
@@ -357,14 +350,6 @@ $('.saveBtn').click(function(e){
 		Materialize.toast('Please enter all compulsary information marked with a *!', 4000);
 		return false;
 	}	
-
-	var logo = '<html><body><div class="logo printLogo"><img src="img/Zupp web_Logo.png" alt="ZUPP" /></div></body></html>';
-	var header = '<div class="printHeader"><h2 class="printHeading">SVC Details</h2></div><div class="mainDivPrint">';
-	var nameDiv = '<div class="personalDetailsPrint"><div id="custName" class="printText">Name<br/><div class="printValue">'+customerName+'</div></div>';
-	var emailDiv = '<div id="custEmail" class="printText">email<br/><div class="printValue">'+customerEmail+'</div></div>';
-	var phoneDiv = '<div id="custNumber" class="printText">Mobile Number<br/><div class="printValue">'+customerPhoneNumber+'</div></div>';
-	var addressDiv = '<div class="addressDetailsPrint"><div class="printText">Address<br/><div class="printValue">'+add1+'<br/>'+add2+'<br/>'+add3+'<br/>'+city+' - '+pincode+'</div></div></div></div>'
-	var formDetails = logo + header + nameDiv + emailDiv + phoneDiv + addressDiv;
 	
 	var data = {"planId":planId, "vehicleEngineNumber":vehicleEngineNumber, "customerName": customerName, "customerEmail":customerEmail, "customerPhoneNumber":customerPhoneNumber, "address":address, "city":city, "pincode":pincode, "vehicleRegistrationNumber":regNumber, "vehicleModel":model, "executiveName":executiveName};
 
@@ -381,22 +366,70 @@ $('.saveBtn').click(function(e){
         data: JSON.stringify(data),
         success: function(result){
         	if(result.status == 'success'){
-        		//print page
-        		var printContents = formDetails;
-			    var originalContents = document.body.innerHTML;
+        		var svcId = result.data._id;
+        		localStorage.setItem('svcToken',svcId);
+        		window.open('pdfDownload');
+        	}
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        	console.log('error', jqXHR);
+        }
+    }); 
+});
 
-			    document.body.innerHTML = printContents;
+//print download page
+if(currentPath == 'pdfDownload'){
+
+	var svcId = localStorage.getItem('svcToken');
+	var planName = localStorage.getItem('planName');
+	var token = localStorage.getItem('token');
+
+	$.ajax({
+    	url: baseUrl + 'svc/'+svcId,
+    	type: "GET",
+        contentType: "application/json",
+        crossDomain: true,
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", "Bearer "+ token);
+        },
+        success: function(result){
+        	if(result.status == 'success'){
+
+        		var svcToken = result.data.token;
+
+        		$('.name')[0].innerHTML = result.data.customerName;
+				$('.phoneNumber')[0].innerHTML = result.data.customerPhoneNumber;
+				$('.email')[0].innerHTML = result.data.customerEmail;
+				$('.address')[0].innerHTML = result.data.address + result.data.city + '-'+ result.data.pincode;
+
+				$('.dateSold')[0].innerHTML = formatNewDate(result.data.createdOn);
+				$('.regNumber')[0].innerHTML = result.data.vehicleRegistrationNumber;
+				$('.engineNo')[0].innerHTML = result.data.vehicleEngineNumber;
+				$('.model')[0].innerHTML = result.data.vehicleModel;
+
+				$('.number')[0].innerHTML = svcToken;
+				$('.svcSoldDate')[0].innerHTML = formatNewDate(result.data.createdOn);
+				$('.cover')[0].innerHTML = result.data.planId.validityDuration;
+				$('.expiryDate')[0].innerHTML = formatNewDate(result.data.expiryDate);
+				$('.planName')[0].innerHTML = planName;
+				$('.days')[0].innerHTML = result.data.planId.coverage + ' Days';
+				$('.createdDate')[0].innerHTML = formatNewDate(result.data.createdOn);
+				$('.price')[0].innerHTML = result.data.planAmount + ' INR';
+
+				$('.dealer')[0].innerHTML = '';
+				$('.dealerCode')[0].innerHTML = '';
+				$('.executiveName')[0].innerHTML = result.data.executiveName;
+				$('.contactNumber')[0].innerHTML = '';
+
 				window.print();
-
-			    document.body.innerHTML = originalContents;
-			    location.href = 'svc';
+        		
         	}
         },
         error: function (jqXHR, textStatus, errorThrown) {
         	console.log('error');
         }
-    }); 
-});
+    });
+}
 
 //view customer details
 $('.tableBody').on('click', '.viewDetailsBtn', function(){
