@@ -368,7 +368,8 @@ $('.saveBtn').click(function(e){
         	if(result.status == 'success'){
         		var svcId = result.data._id;
         		localStorage.setItem('svcToken',svcId);
-        		window.open('pdfDownload');
+        		//window.open('pdfDownload');
+        		location.href = 'pdfDownload';
         	}
         },
         error: function (jqXHR, textStatus, errorThrown) {
