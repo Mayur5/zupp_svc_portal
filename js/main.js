@@ -376,6 +376,9 @@ $('.saveBtn').click(function(e){
         },
         error: function (jqXHR, textStatus, errorThrown) {
         	console.log('error', jqXHR);
+        	if(jqXHR.responseJSON.status == 'error'){
+        		Materialize.toast('Something went wrong! Please make sure your email address and phone number have not been used before!', 4000);
+        	}
         }
     }); 
 });
